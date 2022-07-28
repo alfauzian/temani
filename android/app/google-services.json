@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "406753889018",
+    "project_id": "temani-86964",
+    "storage_bucket": "temani-86964.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406753889018:android:24663325ceb2009d42d743",
+        "android_client_info": {
+          "package_name": "com.rosi.temani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406753889018-dk0dd5djpf4otbbs1heclokte2n8sd1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXgrr0Z-6SOEHQeQXtTXTmVkQLs1qdXa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406753889018-dk0dd5djpf4otbbs1heclokte2n8sd1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
