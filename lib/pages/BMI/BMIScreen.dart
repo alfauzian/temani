@@ -185,7 +185,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> InputBMI())),
+                            onTap: () {},
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               child: Card(
@@ -257,120 +257,6 @@ class _BMISCREENState extends State<BMISCREEN> {
   }
 }
 
-
-
-class InputBMI extends StatefulWidget {
-  @override
-  State<InputBMI> createState() => _InputBMIState();
-}
-
-class _InputBMIState extends State<InputBMI> {
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [ListenableProvider(create: ((context) => BMI()))],
-      builder: (context, child) => Scaffold(
-        appBar: AppBar(
-          title: Text('Input IMT'),
-          centerTitle: true,
-        ),
-        body: Container(
-            child: Column(
-          children: [
-            Expanded(
-                child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Berat',
-                      style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w400)),
-                    ),
-                    Text(
-                      '${Provider.of<BMI>(context).berat}',
-                      style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold)),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () =>
-                                Provider.of<BMI>(context, listen: false)
-                                    .changeBeratMin(),
-                            child: FaIcon(FontAwesomeIcons.minus)),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: FaIcon(FontAwesomeIcons.plus))
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Tinggi',
-                        style: GoogleFonts.lato(
-                            textStyle: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w400))),
-                 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: (){},
-                            child: FaIcon(FontAwesomeIcons.minus)),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: FaIcon(FontAwesomeIcons.plus))
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Usia',
-                        style: GoogleFonts.lato(
-                            textStyle: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w400))),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: (){},
-                            child: FaIcon(FontAwesomeIcons.minus)),
-                        ElevatedButton(
-                            onPressed: (){},
-                            child: FaIcon(FontAwesomeIcons.plus))
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )),
-            ElevatedButton(onPressed: () => Navigator.pop(context, MaterialPageRoute(builder: ((context) => BMISCREEN()))), child: Text('Submit'))
-          ],
-        )),
-      ),
-    );
-  }
-}
 
 
 TextStyle _BMITextStyle() {
