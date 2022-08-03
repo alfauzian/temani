@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:temani/pages/BMI/mainBMI2.dart';
 import 'package:temani/pages/Gizi/mainGizi.dart';
 import 'package:temani/pages/chatPage/chatPage.dart';
 import 'package:temani/pages/homepage/dashboard1.dart';
@@ -14,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List _pages = [dashBoard(), BMIScreen(), GiziScreen(), chatPage()];
+  List _pages = [dashBoard(), GiziScreen(), chatPage()];
 
   int currentIndex = 0;
   void onTap(int index) {

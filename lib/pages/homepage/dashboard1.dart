@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:temani/widgets/week_listview.dart';
+import 'package:intl/intl.dart';
 
 Color _primaryColor = Color(0xffFBD6D2);
 Color _cardColor = Color(0xffFFCFCF);
@@ -111,14 +109,48 @@ Widget _buildDashboard(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Expanded(
+            child: Container(
+              color: _dateColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  child:Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Selamat Pagi",style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black54
+                            )
+                          ),),
+                          Text("Miss Fulan Bin Fulan",style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                              fontSize: 28
+                            )
+                          ),)
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            
+          ),
+          flex: 2,
+        ),
+        Expanded(
           flex: 1,
           child: Container(
-            color: _primaryColor,
-            child: WeekListView(),
           ),
         ),
         Expanded(
-          flex: 8,
+          flex: 10,
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -250,20 +282,6 @@ Widget _buildDashboard(BuildContext context) {
             ]),
           ),
         ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 2, horizontal: 3),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width,
-              child: Card(
-                color: _cardColor,
-                elevation: 3,
-              ),
-            ),
-          ),
-          flex: 2,
-        )
       ],
     ),
   );
@@ -304,38 +322,6 @@ TextStyle _appbarTitleStyle() {
 TextStyle _faseTexstyle() {
   return TextStyle(
       fontFamily: 'Open-Sans', fontWeight: FontWeight.w800, fontSize: 16);
-}
-
-_gakGuna() {
-  return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
-      child: Row(
-        children: [
-          Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "Lama kandungan",
-                style: _textUsia(),
-              ),
-              _gantiMingguHari()
-            ],
-          )),
-          Expanded(
-              child: Center(
-            child: AdvancedSwitch(
-              controller: _controller,
-              activeColor: Color(0xffB2A4FF),
-              inactiveColor: Color(0xffFFDEB4),
-              inactiveChild: Text("Minggu"),
-              activeChild: Text("Hari"),
-              width: 100,
-              height: 40,
-            ),
-          ))
-        ],
-      ));
 }
 
 _listview() {
