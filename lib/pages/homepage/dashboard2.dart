@@ -8,23 +8,6 @@ import 'package:temani/logic/logic_gambar.dart';
 import 'package:temani/pages/BMI/BMIScreen.dart';
 import 'package:temani/pages/Gizi/mainGizi.dart';
 
-import 'dashboard1.dart';
-
-
-_gambarKehamilan() {
-  if (mingguKehamilan <= 4) {
-    return Image.asset('assets/images/Buah_kandungan_4.png');
-  } else if (mingguKehamilan > 4 && mingguKehamilan <= 7) {
-    return Image.asset('assets/images/Buah_kandungan_7.png');
-  } else if (mingguKehamilan > 7 && mingguKehamilan <= 9) {
-    return Image.asset('assets/images/Buah_kandungan_9.png');
-  } else if (mingguKehamilan > 9 && mingguKehamilan <= 11) {
-    return Image.asset('assets/images/Buah_kandungan_11.png');
-  }
-}
-
-_infoKehamilan() {}
-
 class Dashboarda extends StatefulWidget {
   const Dashboarda({Key? key}) : super(key: key);
 
@@ -141,7 +124,7 @@ class _DashboardaState extends State<Dashboarda> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: _gambarKehamilan(),
+                          child: Container(),
                           flex: 2,
                         ),
                         Expanded(

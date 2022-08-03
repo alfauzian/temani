@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
 import 'package:temani/pages/homepage/dashboard2.dart';
-import 'package:temani/pages/mainPage.dart';
 import 'dart:async';
 import 'package:temani/database/gizi_db.dart';
 
