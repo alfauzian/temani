@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:temani/database/gizi_db.dart';
 import 'package:temani/database/gizi_item.dart';
 import 'package:temani/logic/BMI.dart';
-import 'package:temani/logic/logic_gambar.dart';
+import 'package:temani/logic/dashboard_logic.dart';
 class GiziScreen extends StatefulWidget {
   const GiziScreen({Key? key}) : super(key: key);
 

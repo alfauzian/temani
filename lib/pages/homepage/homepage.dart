@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
-import 'package:temani/logic/logic_gambar.dart';
+import 'package:temani/logic/dashboard_logic.dart';
 import 'package:temani/pages/BMI/BMIScreen.dart';
-import 'package:temani/pages/Gizi/mainGizi.dart';
+import 'package:temani/pages/Gizi/giziScreen.dart';
 
 class Dashboarda extends StatefulWidget {
   const Dashboarda({Key? key}) : super(key: key);
@@ -59,9 +59,17 @@ class _DashboardaState extends State<Dashboarda> {
                                       bottomRight: Radius.circular(30))),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Hai, Alena Putri Pratiwi",
-                                  style: _appbarTitleStyle(),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                        "Hai, User",
+                                        style: _appbarTitleStyle(),
+                                      ),
+                                    ),
+                                    Flexible(child: FaIcon(FontAwesomeIcons.pen,size: 15,))
+                                  ],
                                 ),
                               ),
                             ),
@@ -124,7 +132,7 @@ class _DashboardaState extends State<Dashboarda> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(),
+                          child: Container(child: Provider.of<GambarWithNutrisi>(context).gambarKehamilan()),
                           flex: 2,
                         ),
                         Expanded(

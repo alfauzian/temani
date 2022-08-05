@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
+import 'package:temani/pages/BMI/inputBMI.dart';
 
 class BMISCREEN extends StatefulWidget {
   const BMISCREEN({Key? key}) : super(key: key);
@@ -185,7 +186,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => InputBMI()))),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               child: Card(

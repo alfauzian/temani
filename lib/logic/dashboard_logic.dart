@@ -5,7 +5,7 @@ import 'package:provider/single_child_widget.dart';
 class GambarWithNutrisi with ChangeNotifier {
   late String nama;
   late int hari = 0;
-  late int minggu = 29;
+  late int minggu = 5;
   late int Trimester = 1;
 
   late int karbohidrat = 0;
@@ -17,22 +17,17 @@ class GambarWithNutrisi with ChangeNotifier {
   late int sisaAsupan;
 
   sisa() {
-    if(Trimester == 1) {
+    if (Trimester == 1) {
       sisaAsupan = 1800;
       return sisaAsupan - kalori;
-    }
-    else if(Trimester == 2) {
+    } else if (Trimester == 2) {
       sisaAsupan = 2100;
       return sisaAsupan - kalori;
-    }
-    else if(Trimester == 3) {
+    } else if (Trimester == 3) {
       sisaAsupan = 2400;
       return sisaAsupan - kalori;
     }
   }
-
-  
-
 
   ukuranBerat() {
     if (minggu <= 7) {
@@ -197,5 +192,36 @@ class GambarWithNutrisi with ChangeNotifier {
       return Text('> 4000 cm');
     }
     notifyListeners();
+  }
+
+  gambarKehamilan() {
+    if (minggu <= 4) {
+      return Image.asset('assets/images/Buah_kandungan_4.png');
+    } else if (minggu > 4 && minggu <= 7) {
+      return Image.asset('assets/images/Buah_kandungan_7.png');
+    } else if (minggu > 7 && minggu <= 9) {
+      return Image.asset('assets/images/Buah_kandungan_9.png');
+    } else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }
+    else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }
   }
 }

@@ -12,9 +12,9 @@ TextStyle __textStyle() {
 }
 
 class BMI with ChangeNotifier {
-  late int usia = 12;
+  late int usia = 0;
   late int berat = 0;
-  late int _tinggi = 120;
+  late int _tinggi = 0;
   int get tinggi => _tinggi;
 
   late double hasil = berat / pow(tinggi, 2);
@@ -45,7 +45,7 @@ class BMI with ChangeNotifier {
   }
 
   void changeBeratMin() {
-    this._beratController.sink.add(berat--);
+    berat--;
     notifyListeners();
   }
 
