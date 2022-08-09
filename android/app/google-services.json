@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "800013645309",
-    "project_id": "temani-c5468",
-    "storage_bucket": "temani-c5468.appspot.com"
+    "project_number": "900457764149",
+    "project_id": "temani---tracker-kehamilan",
+    "storage_bucket": "temani---tracker-kehamilan.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:800013645309:android:24cecb0bd8fdd0ba50d594",
+        "mobilesdk_app_id": "1:900457764149:android:bf3b189cc209775714287c",
         "android_client_info": {
           "package_name": "com.rosi.temani"
         }
       },
       "oauth_client": [
         {
-          "client_id": "800013645309-8hihtcmuk13apgajk2n4ogjalcg5lfme.apps.googleusercontent.com",
+          "client_id": "900457764149-hglpi5ah7p323pe75gmcr2duq5721rrl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rosi.temani",
+            "certificate_hash": "1acdbfce3ad4f3609b93325fad974b081ba8d7d6"
+          }
+        },
+        {
+          "client_id": "900457764149-lf5m6hp5e03gaudaefq1vhfbrpecd7rd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1v0URr4Dii7ADvQC3MuvOcO8ZLZK0XXk"
+          "current_key": "AIzaSyBNfD8GbGP87B8X0Hu841GS786asKLFgIc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "800013645309-8hihtcmuk13apgajk2n4ogjalcg5lfme.apps.googleusercontent.com",
+              "client_id": "900457764149-lf5m6hp5e03gaudaefq1vhfbrpecd7rd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

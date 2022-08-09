@@ -1,12 +1,24 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GambarWithNutrisi with ChangeNotifier {
-  late String nama;
-  late int hari = 0;
-  late int minggu = 5;
-  late int Trimester = 1;
+  late String nama = "User";
+  int _hari = 0;
+  late var minggu = (hari / 7);
+  int? Trimester;
+  late var sisahari = 280 - hari;
+
+  int get hari =>  _hari;
+  set time(int newHari) {
+    _hari = newHari;
+    notifyListeners();
+    setGiziPreferences();
+  }
 
   late int karbohidrat = 0;
   late int protein = 0;
@@ -14,7 +26,38 @@ class GambarWithNutrisi with ChangeNotifier {
 
   late int kalori = (karbohidrat * 9) + (protein * 5) + (protein * 3);
 
-  late int sisaAsupan;
+  late int sisaAsupan ;
+
+
+
+  void setGiziPreferences() async {
+    final GiziData = await SharedPreferences.getInstance();
+
+
+    final giziData = json.encode({
+      'karbohidrat' : karbohidrat.toString(),
+      'protein' : protein.toString(),
+      'lemak': lemak.toString(),
+
+      'hari':hari.toString()
+
+    });
+
+    GiziData.setString('giziData', giziData);
+  }
+
+
+  funcTrimester() {
+    if(minggu < 12) {
+      return Trimester = 1;
+    }
+    else if(minggu >= 13 && minggu < 24) {
+      return Trimester = 2;
+    }
+    else if( minggu >= 25 ) {
+      return Trimester = 3;
+    }
+  }
 
   sisa() {
     if (Trimester == 1) {

@@ -26,12 +26,13 @@ dependencies:
   provider: ^6.0.3
   google_fonts: ^3.0.1
   sqflite: ^2.0.3
-  path: ^1.8.2
-  single_option_picker: ^1.0.1+2
+  path: ^1.8.1
   font_awesome_flutter: ^10.1.0
-  flutter_bloc: ^8.0.1
-  bloc: ^8.0.3
   shared_preferences: ^2.0.15
+  salomon_bottom_bar: ^3.3.1
+  get: ^4.6.5
+  firebase_core: ^1.20.0
+  google_sign_in: ^5.4.0
 
 
 dev_dependencies:
@@ -84,6 +85,7 @@ flutter:
     - assets/images/Buah_kandungan_35.png
     - assets/images/Buah_kandungan_39.png
     - assets/images/
+    - assets/icons/
 
  
   # An image asset can refer to one or more resolution-specific "variants", see

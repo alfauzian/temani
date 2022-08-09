@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
-import 'package:temani/pages/homepage/homepage.dart';
+import 'package:temani/pages/homescreen/homepage.dart';
 import 'dart:async';
-import 'package:temani/database/gizi_db.dart';
-import 'package:temani/pages/introduction/introduction.dart';
+import 'package:temani/pages/mainPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ChangeNotifierProvider(
     create: (_) {
       BMI();
@@ -33,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 2),
         (() => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => Dashboarda())))));
+            context, MaterialPageRoute(builder: ((context) => MainNavigationBar())))));
   }
 
   @override

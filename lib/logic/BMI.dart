@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 TextStyle __textStyle() {
   return GoogleFonts.lato(
@@ -19,14 +21,20 @@ class BMI with ChangeNotifier {
 
   late double hasil = berat / pow(tinggi, 2);
 
-  StreamController _beratController = StreamController();
-  Stream get beratStream => _beratController.stream;
 
-  StreamController _tinggiController = StreamController();
-  Stream get tinggiStream => _tinggiController.stream;
 
-  StreamController _usiaController = StreamController();
-  Stream get usiaStream => _usiaController.stream;
+  void setBMIPreferences() async {
+    final BMIData = await SharedPreferences.getInstance();
+
+
+    final bmiData = json.encode({
+      'berat': berat,
+      'tinggi': tinggi,
+      'usia': usia,
+      
+    });
+  }
+
 
  
   void changeUsiaPlus() {
@@ -40,7 +48,7 @@ class BMI with ChangeNotifier {
   }
 
   void changeBeratPlus() {
-    this._beratController.sink.add(berat++);
+    berat++;
     notifyListeners();
   }
 

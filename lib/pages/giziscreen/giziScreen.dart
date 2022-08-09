@@ -51,8 +51,8 @@ class _GiziScreenState extends State<GiziScreen> {
                       Expanded(
                         child: CircularPercentIndicator(
                             animationDuration: 1200,
-                            radius: 90,
-                            lineWidth: 15.0,
+                            radius: MediaQuery.of(context).size.width/4.4,
+                            lineWidth: MediaQuery.of(context).size.width/4,
                             animation: true,
                             percent: 1,
                             circularStrokeCap: CircularStrokeCap.round,
@@ -61,8 +61,8 @@ class _GiziScreenState extends State<GiziScreen> {
                             center: Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
+                                  height: MediaQuery.of(context).size.height,
+                                  width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       color: Colors.purple[200],
                                       shape: BoxShape.circle),
