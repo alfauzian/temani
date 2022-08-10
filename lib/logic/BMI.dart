@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 TextStyle __textStyle() {
   return GoogleFonts.lato(
@@ -24,7 +23,6 @@ class BMI with ChangeNotifier {
 
 
   void setBMIPreferences() async {
-    final BMIData = await SharedPreferences.getInstance();
 
 
     final bmiData = json.encode({

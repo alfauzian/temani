@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 class GambarWithNutrisi with ChangeNotifier {
   late String nama = "User";
   int _hari = 0;
@@ -31,7 +29,6 @@ class GambarWithNutrisi with ChangeNotifier {
 
 
   void setGiziPreferences() async {
-    final GiziData = await SharedPreferences.getInstance();
 
 
     final giziData = json.encode({
@@ -42,8 +39,6 @@ class GambarWithNutrisi with ChangeNotifier {
       'hari':hari.toString()
 
     });
-
-    GiziData.setString('giziData', giziData);
   }
 
 

@@ -1,22 +1,8 @@
+import 'package:get/get.dart';
+
 class GiziModel{
-  int? id;
-  String karbohidrat;
-  String protein;
-  String lemak;
-
-  GiziModel({this.id, required this.karbohidrat, required this.protein, required this.lemak});
-
-  Map<String,dynamic> toMap() {
-    return {
-      'id':id,
-      'karbohidrat': karbohidrat,
-      'protein' : protein,
-      'lemak' : lemak
-    };
-  }
-
-  @override
-  String toString() {
-    return 'GiziModel(karbohidrat: $karbohidrat protein: $protein, lemak: $lemak)';
-  }
+  late int karbohidrat = 0.obs as int;
+  late int protein = 0.obs as int;
+  late int lemak = 0.obs as int;
+  late var hasil = ((karbohidrat * 9) + (protein * 5) + (lemak * 3));
 }

@@ -7,8 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
 import 'package:temani/logic/dashboard_logic.dart';
-import 'package:temani/pages/imt_screen/BMIScreen.dart';
-import 'package:temani/pages/giziscreen/giziScreen.dart';
 
 class Dashboarda extends StatefulWidget {
   const Dashboarda({Key? key}) : super(key: key);
@@ -18,31 +16,13 @@ class Dashboarda extends StatefulWidget {
 }
 
 class _DashboardaState extends State<Dashboarda> {
-  Future displayTextDialog(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: ((context) {
-          return MultiProvider(providers: [
-            ListenableProvider(create: ((context) => GambarWithNutrisi())),
-            ChangeNotifierProvider(create: (context) => GambarWithNutrisi())
-          ], builder: (context, child) => Dialog());
-        }));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => BMI()),
-        ChangeNotifierProvider(create: (context) => GambarWithNutrisi()),
-        ListenableProvider(create: (context) => GambarWithNutrisi()),
-        ChangeNotifierProvider(create: ((context) => MainInti()))
-      ],
-      builder: (context, child) => Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
-            color: Colors.grey[200],
+            color: Colors.grey[100],
             child: Column(
               children: [
                 Flexible(
@@ -96,7 +76,7 @@ class _DashboardaState extends State<Dashboarda> {
                                           Expanded(
                                             flex: 4,
                                             child: Text(
-                                              "Hai, ${Provider.of<GambarWithNutrisi>(context).nama}",
+                                              "Hai, ",
                                               style: _appbarTitleStyle(),
                                             ),
                                           ),
@@ -111,18 +91,15 @@ class _DashboardaState extends State<Dashboarda> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
                                       padding: const EdgeInsets.only(right: 35),
-                                      child: GestureDetector(
-                                        onTap: () => displayTextDialog(context),
-                                        child: FaIcon(
-                                          FontAwesomeIcons.calendarDay,
-                                          size: 30,
-                                          color: Colors.white,
-                                        ),
-                                      )),
-                                )
+                                      child: FaIcon(
+                                        FontAwesomeIcons.calendarDay,
+                                        size: 30,
+                                        color: Colors.white,
+                                      ),
+                                    )),
                               ]),
                           Row(
                             children: [
@@ -136,7 +113,7 @@ class _DashboardaState extends State<Dashboarda> {
                                       style: _infoIntiStyle(),
                                     ),
                                     Text(
-                                      '${Provider.of<GambarWithNutrisi>(context).hari}',
+                                      '',
                                       style: _infoDataIntiStyle(),
                                     ),
                                   ],
@@ -151,7 +128,7 @@ class _DashboardaState extends State<Dashboarda> {
                                         style: _infoIntiStyle(),
                                       ),
                                       Text(
-                                        '${Provider.of<GambarWithNutrisi>(context).minggu.toInt()}',
+                                        '',
                                         style: _infoDataIntiStyle(),
                                       )
                                     ],
@@ -166,7 +143,7 @@ class _DashboardaState extends State<Dashboarda> {
                                       style: _infoIntiStyle(),
                                     ),
                                     Text(
-                                      '${Provider.of<GambarWithNutrisi>(context).funcTrimester()}',
+                                      '',
                                       style: _infoDataIntiStyle(),
                                     )
                                   ]),
@@ -193,9 +170,7 @@ class _DashboardaState extends State<Dashboarda> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                              child: Provider.of<GambarWithNutrisi>(context)
-                                  .gambarKehamilan()),
+                          child: Container(),
                           flex: 2,
                         ),
                         Expanded(
@@ -216,7 +191,7 @@ class _DashboardaState extends State<Dashboarda> {
                                                 fontSize: 20)),
                                       ),
                                       Text(
-                                        "${Provider.of<GambarWithNutrisi>(context).sisahari}",
+                                        "",
                                         style: GoogleFonts.lato(
                                             textStyle: TextStyle(
                                                 fontSize: 40,
@@ -253,8 +228,6 @@ class _DashboardaState extends State<Dashboarda> {
                                         FontAwesomeIcons.scaleBalanced,
                                         size: 15,
                                       ),
-                                      Provider.of<GambarWithNutrisi>(context)
-                                          .ukuranBerat()
                                     ],
                                   ),
                                   Row(
@@ -265,8 +238,7 @@ class _DashboardaState extends State<Dashboarda> {
                                         FontAwesomeIcons.ruler,
                                         size: 15,
                                       ),
-                                      Provider.of<GambarWithNutrisi>(context)
-                                          .ukuranPanjang()
+
                                     ],
                                   )
                                 ],
@@ -281,7 +253,7 @@ class _DashboardaState extends State<Dashboarda> {
                 Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 0,top: 20),
+                      padding: const EdgeInsets.only(bottom: 0, top: 20),
                       child: Container(
                           height: MediaQuery.of(context).size.height,
                           child: Column(
@@ -290,58 +262,148 @@ class _DashboardaState extends State<Dashboarda> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BMISCREEN())),
-                                        child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(0)),
-                                            child: Card(
-                                              color: Colors.white,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Container(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .weightScale,
-                                                        size: 60,
-                                                        color: Colors.black45,
-                                                      ),
+                                      child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(0)),
+                                          child: Card(
+                                            color: Colors.white,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: FaIcon(
+                                                      FontAwesomeIcons
+                                                          .weightScale,
+                                                      size: 60,
+                                                      color: Colors.black45,
                                                     ),
-                                                    alignment:
-                                                        Alignment.topCenter,
                                                   ),
-                                                  Container(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Text(
-                                                            '${Provider.of<BMI>(context).hasil.toStringAsFixed(1)}',
-                                                            style: GoogleFonts
-                                                                .fredokaOne(
-                                                                    textStyle: TextStyle(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                ),
+                                                Container(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text('',
+                                                          style: GoogleFonts
+                                                              .fredokaOne(
+                                                                  textStyle: TextStyle(
+                                                                      fontSize:
+                                                                          60))),
+                                                      Container(
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 20),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Column(
+                                                                children: [
+                                                                  Text(
+                                                                    '',
+                                                                    style:
+                                                                        _infoBMIStyle(),
+                                                                  ),
+                                                                  Text('kg')
+                                                                ],
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Text(
+                                                                    '',
+                                                                    style:
+                                                                        _infoBMIStyle(),
+                                                                  ),
+                                                                  Text('cm')
+                                                                ],
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  Text(
+                                                                    '',
+                                                                    style:
+                                                                        _infoBMIStyle(),
+                                                                  ),
+                                                                  Text('Tahun')
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context)
+                                              .size
+                                              .height,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: Card(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: FaIcon(
+                                                      FontAwesomeIcons.bowlFood,
+                                                      size: 60,
+                                                      color: Colors.black45,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        '',
+                                                        style: GoogleFonts
+                                                            .fredokaOne(
+                                                                textStyle:
+                                                                    TextStyle(
                                                                         fontSize:
-                                                                            60))),
-                                                        Container(
+                                                                            50)),
+                                                      ),
+                                                      Container(
                                                           alignment: Alignment
                                                               .bottomCenter,
                                                           width: MediaQuery.of(
@@ -351,7 +413,7 @@ class _DashboardaState extends State<Dashboarda> {
                                                           child: Padding(
                                                             padding:
                                                                 EdgeInsets.only(
-                                                                    top: 20),
+                                                                    top: 40),
                                                             child: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -363,158 +425,46 @@ class _DashboardaState extends State<Dashboarda> {
                                                                 Column(
                                                                   children: [
                                                                     Text(
-                                                                      '${Provider.of<BMI>(context).berat}',
+                                                                      '',
                                                                       style:
                                                                           _infoBMIStyle(),
                                                                     ),
-                                                                    Text('kg')
+                                                                    Text(
+                                                                      'Karbo',
+                                                                    )
                                                                   ],
                                                                 ),
                                                                 Column(
                                                                   children: [
                                                                     Text(
-                                                                      '${Provider.of<BMI>(context).tinggi}',
+                                                                      '',
                                                                       style:
                                                                           _infoBMIStyle(),
                                                                     ),
-                                                                    Text('cm')
+                                                                    Text(
+                                                                        'Lemak')
                                                                   ],
                                                                 ),
                                                                 Column(
                                                                   children: [
                                                                     Text(
-                                                                      '${Provider.of<BMI>(context).usia}',
+                                                                      '',
                                                                       style:
                                                                           _infoBMIStyle(),
                                                                     ),
                                                                     Text(
-                                                                        'Tahun')
+                                                                        'Protein')
                                                                   ],
                                                                 )
                                                               ],
                                                             ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    GiziScreen())),
-                                        child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: Card(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Container(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .bowlFood,
-                                                        size: 60,
-                                                        color: Colors.black45,
-                                                      ),
-                                                    ),
+                                                          ))
+                                                    ],
                                                   ),
-                                                  Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          '${Provider.of<GambarWithNutrisi>(context).kalori}',
-                                                          style: GoogleFonts
-                                                              .fredokaOne(
-                                                                  textStyle:
-                                                                      TextStyle(
-                                                                          fontSize:
-                                                                              50)),
-                                                        ),
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .bottomCenter,
-                                                            width:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 40),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Column(
-                                                                    children: [
-                                                                      Text(
-                                                                        '${Provider.of<GambarWithNutrisi>(context).karbohidrat}',
-                                                                        style:
-                                                                            _infoBMIStyle(),
-                                                                      ),
-                                                                      Text(
-                                                                        'Karbo',
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    children: [
-                                                                      Text(
-                                                                        '${Provider.of<GambarWithNutrisi>(context).lemak}',
-                                                                        style:
-                                                                            _infoBMIStyle(),
-                                                                      ),
-                                                                      Text(
-                                                                          'Lemak')
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    children: [
-                                                                      Text(
-                                                                        '${Provider.of<GambarWithNutrisi>(context).protein}',
-                                                                        style:
-                                                                            _infoBMIStyle(),
-                                                                      ),
-                                                                      Text(
-                                                                          'Protein')
-                                                                    ],
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                      ),
+                                                )
+                                              ],
+                                            ),
+                                          )),
                                     ),
                                   ],
                                 ),
@@ -525,9 +475,7 @@ class _DashboardaState extends State<Dashboarda> {
               ],
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 

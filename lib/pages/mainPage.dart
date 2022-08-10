@@ -1,39 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:temani/pages/chatPage/sapaScreen.dart';
+import 'package:temani/pages/giziscreen/giziScreen.dart';
 import 'package:temani/pages/homescreen/homepage.dart';
+import 'package:temani/pages/imt_screen/BMIScreen.dart';
 
-class MainNavigationBar extends StatefulWidget {
-  const MainNavigationBar({Key? key}) : super(key: key);
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
-  State<MainNavigationBar> createState() => _MainNavigationBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _MainNavigationBarState extends State<MainNavigationBar> {
-  List pages = [Dashboarda(), ChatPage()];
-  int _currentIndex = 0;
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _selectedIndex = 0;
+
+
+  static final List<Widget> _NavScreen = <Widget>[
+    Dashboarda(),
+    BMISCREEN(),
+    GiziScreen(),
+    ChatPage()
+    
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pages[_currentIndex],
-        bottomNavigationBar: SalomonBottomBar(
-          onTap: (pages) {
-            setState(() {
-              _currentIndex = pages;
-            });
-          },
-          currentIndex: _currentIndex,
-          items: [
-            SalomonBottomBarItem(
-                icon: FaIcon(FontAwesomeIcons.home),
-                title: Text('Layar Utama')),
-            SalomonBottomBarItem(
-                icon: FaIcon(FontAwesomeIcons.userNurse),
-                title: Text('Sapa Bidan'))
-          ],
-        ));
+      body: Center(child: _NavScreen.elementAt(_selectedIndex)),
+      bottomNavigationBar: 
+      SafeArea(
+          child: Container(
+            child: GNav(
+               tabBackgroundColor: Colors.purple.withOpacity(0.4),
+               tabBorderRadius: 15,
+              hoverColor: Colors.white,
+              gap: 8,
+              iconSize: 18,
+              activeColor: Colors.white,
+              onTabChange: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              selectedIndex: _selectedIndex,
+              tabs: [
+              GButton(icon: LineIcons.home , text: "Utama",),
+              GButton(icon: LineIcons.balanceScale , text: "IMT",),
+              GButton(icon: LineIcons.nutritionix , text: "Gizi",),
+              GButton(icon: LineIcons.user , text: "Sapa Bidan",),
+            ]),
+          ),
+        ),
+    );
   }
 }
