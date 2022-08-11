@@ -1,46 +1,24 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/single_child_widget.dart';
-class GambarWithNutrisi with ChangeNotifier {
-  late String nama = "User";
-  int _hari = 0;
-  late var minggu = (hari / 7);
-  int? Trimester;
-  late var sisahari = 280 - hari;
-
-  int get hari =>  _hari;
-  set time(int newHari) {
-    _hari = newHari;
-    notifyListeners();
-    setGiziPreferences();
-  }
-
-  late int karbohidrat = 0;
-  late int protein = 0;
-  late int lemak = 0;
-
-  late int kalori = (karbohidrat * 9) + (protein * 5) + (lemak * 3);
-
-  late int sisaAsupan ;
+import 'package:get/get.dart';
 
 
 
-  void setGiziPreferences() async {
+import 'package:temani/models/infoKehamilan.dart';
 
 
-    final giziData = json.encode({
-      'karbohidrat' : karbohidrat.toString(),
-      'protein' : protein.toString(),
-      'lemak': lemak.toString(),
+class InfoController extends GetxController {
 
-      'hari':hari.toString()
+  var info = InfoKehamilan().obs;
+  
 
-    });
-  }
+  RxnInt hari = InfoKehamilan().hari ;
+  TextEditingController _loginController = TextEditingController();
+  
 
+
+  late int Trimester;
+
+  late int minggu = (hari / 7) as int;
 
   funcTrimester() {
     if(minggu < 12) {
@@ -54,18 +32,6 @@ class GambarWithNutrisi with ChangeNotifier {
     }
   }
 
-  sisa() {
-    if (Trimester == 1) {
-      sisaAsupan = 1800;
-      return sisaAsupan - kalori;
-    } else if (Trimester == 2) {
-      sisaAsupan = 2100;
-      return sisaAsupan - kalori;
-    } else if (Trimester == 3) {
-      sisaAsupan = 2400;
-      return sisaAsupan - kalori;
-    }
-  }
 
   ukuranBerat() {
     if (minggu <= 7) {
@@ -229,37 +195,6 @@ class GambarWithNutrisi with ChangeNotifier {
     } else if (minggu == 43) {
       return Text('> 4000 cm');
     }
-    notifyListeners();
   }
-
-  gambarKehamilan() {
-    if (minggu <= 4) {
-      return Image.asset('assets/images/Buah_kandungan_4.png');
-    } else if (minggu > 4 && minggu <= 7) {
-      return Image.asset('assets/images/Buah_kandungan_7.png');
-    } else if (minggu > 7 && minggu <= 9) {
-      return Image.asset('assets/images/Buah_kandungan_9.png');
-    } else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }
-    else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }
-  }
+  
 }

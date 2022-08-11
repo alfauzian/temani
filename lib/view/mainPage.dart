@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:temani/pages/chatPage/sapaScreen.dart';
-import 'package:temani/pages/giziscreen/giziScreen.dart';
-import 'package:temani/pages/homescreen/homepage.dart';
-import 'package:temani/pages/imt_screen/BMIScreen.dart';
+import 'package:temani/view/chatPage/sapaScreen.dart';
+import 'package:temani/view/giziscreen/giziScreen.dart';
+import 'package:temani/view/homescreen/homepage.dart';
+import 'package:temani/view/imt_screen/BMIScreen.dart';
 
 
 class BottomNavBar extends StatefulWidget {
@@ -23,6 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     BMISCREEN(),
     GiziScreen(),
     ChatPage()
+    
     
   ];
 

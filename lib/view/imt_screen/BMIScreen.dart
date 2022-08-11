@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/logic/BMI.dart';
-import 'package:temani/pages/imt_screen/inputBMI.dart';
+import 'package:temani/view/imt_screen/inputBMI.dart';
 
 class BMISCREEN extends StatefulWidget {
   const BMISCREEN({Key? key}) : super(key: key);

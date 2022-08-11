@@ -238,7 +238,6 @@ class _DashboardaState extends State<Dashboarda> {
                                         FontAwesomeIcons.ruler,
                                         size: 15,
                                       ),
-
                                     ],
                                   )
                                 ],

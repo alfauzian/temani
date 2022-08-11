@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:temani/pages/homescreen/homepage.dart';
+import 'package:temani/view/homescreen/homepage.dart';
+import 'package:temani/view/login_pages/login_page.dart';
 import 'dart:async';
-import 'package:temani/pages/mainPage.dart';
+import 'package:temani/view/mainPage.dart';
 
 import 'logic/BMI.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(ChangeNotifierProvider(
-    create: (_) {
-      BMI();
-    },
-    child: MyApp(),
-  ));
+  await GetStorage().initStorage;
+  runApp(MyApp(),);
 }
 
 class SplashScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(
-        Duration(seconds: 2),
+        Duration(seconds: 3),
         (() => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: ((context) => BottomNavBar())))));
   }
@@ -48,14 +48,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Open-Sans',
-        ),
+    return GetMaterialApp(
+      theme: ThemeData(fontFamily: 'Open-Sans'),
         debugShowCheckedModeBanner: false,
-        home: const Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: SplashScreen(),
-        ));
+        home: LoginScreen(),
+        );
   }
 }
