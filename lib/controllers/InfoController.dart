@@ -11,14 +11,15 @@ class InfoController extends GetxController {
   var info = InfoKehamilan().obs;
   
 
-  RxnInt hari = InfoKehamilan().hari ;
-  TextEditingController _loginController = TextEditingController();
-  
+  RxnInt hari = InfoKehamilan().hari;
 
+  TextEditingController _loginController = TextEditingController();
 
   late int Trimester;
 
-  late int minggu = (hari / 7) as int;
+  late double minggu = (hari / 7) as double;
+
+  
 
   funcTrimester() {
     if(minggu < 12) {
@@ -196,5 +197,34 @@ class InfoController extends GetxController {
       return Text('> 4000 cm');
     }
   }
-  
+  gambarKehamilan() {
+    if (minggu <= 4) {
+      return Image.asset('assets/images/Buah_kandungan_4.png');
+    } else if (minggu > 4 && minggu <= 7) {
+      return Image.asset('assets/images/Buah_kandungan_7.png');
+    } else if (minggu > 7 && minggu <= 9) {
+      return Image.asset('assets/images/Buah_kandungan_9.png');
+    } else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }
+    else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }else if (minggu > 9 && minggu <= 11) {
+      return Image.asset('assets/images/Buah_kandungan_11.png');
+    }
+  }
 }

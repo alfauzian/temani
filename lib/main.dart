@@ -32,12 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 3),
         (() => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => BottomNavBar())))));
+            context, MaterialPageRoute(builder: ((context) => LoginScreen())))));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Center(child: Image.asset('assets/images/logo_login.png')),
     );
   }
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Open-Sans'),
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        home: BottomNavBar(),
         );
   }
 }

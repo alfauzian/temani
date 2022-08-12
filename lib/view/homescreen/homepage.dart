@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:temani/controllers/InfoController.dart';
 import 'package:temani/logic/BMI.dart';
 import 'package:temani/logic/dashboard_logic.dart';
 
@@ -16,6 +18,9 @@ class Dashboarda extends StatefulWidget {
 }
 
 class _DashboardaState extends State<Dashboarda> {
+
+  InfoController info = Get.put(InfoController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,9 +80,29 @@ class _DashboardaState extends State<Dashboarda> {
                                           ),
                                           Expanded(
                                             flex: 4,
-                                            child: Text(
-                                              "Hai, ",
-                                              style: _appbarTitleStyle(),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text(
+                                                    "Hai, ",
+                                                    style: _appbarTitleStyle(),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text(
+                                                    'Alamat',
+                                                    style: GoogleFonts.lato(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 12)),
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
                                           Expanded(
@@ -102,51 +127,38 @@ class _DashboardaState extends State<Dashboarda> {
                                     )),
                               ]),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Expanded(
+                                child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text('${info.minggu.toStringAsFixed(0)}',style: GoogleFonts.staatliches(
+                                          textStyle: TextStyle(fontSize: 70)
+                                        ),),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text('Minggu',))
+                                      ],
+                                    )),
+                                ),
+                              
+                              Expanded(
+                                child: Container(
                                   child: Container(
-                                decoration: BoxDecoration(),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Hari',
-                                      style: _infoIntiStyle(),
-                                    ),
-                                    Text(
-                                      '',
-                                      style: _infoDataIntiStyle(),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                              Expanded(
-                                child: Container(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        'Minggu',
-                                        style: _infoIntiStyle(),
-                                      ),
-                                      Text(
-                                        '',
-                                        style: _infoDataIntiStyle(),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: Column(children: [
-                                    Text(
-                                      'Trimester',
-                                      style: _infoIntiStyle(),
-                                    ),
-                                    Text(
-                                      '',
-                                      style: _infoDataIntiStyle(),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text('${info.funcTrimester()}',style: GoogleFonts.staatliches(
+                                          textStyle: TextStyle(fontSize: 70)
+                                        ),),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text('Fase'))
+                                      ],
                                     )
-                                  ]),
+                                  ),
                                 ),
                               )
                             ],
@@ -170,7 +182,9 @@ class _DashboardaState extends State<Dashboarda> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(),
+                          child: Container(
+                            child: info.gambarKehamilan(),
+                          ),
                           flex: 2,
                         ),
                         Expanded(
