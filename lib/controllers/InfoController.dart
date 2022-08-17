@@ -1,38 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
+import 'package:get_storage/get_storage.dart';
+import 'package:temani/controllers/auth.dart';
 
 import 'package:temani/models/infoKehamilan.dart';
 
-
 class InfoController extends GetxController {
+  static final authC = Get.put(AuthController());
 
-  var info = InfoKehamilan().obs;
-  
+  static int harii = authC.hari;
+  var rememberMe = false.obs;
 
-  RxnInt hari = InfoKehamilan().hari;
+  late TextEditingController nama;
+  late TextEditingController alamat;
+  late TextEditingController hari;
+  late TextEditingController usia;
 
-  TextEditingController _loginController = TextEditingController();
-
-  late int Trimester;
-
-  late double minggu = (hari / 7) as double;
-
-  
-
-  funcTrimester() {
-    if(minggu < 12) {
-      return Trimester = 1;
-    }
-    else if(minggu >= 13 && minggu < 24) {
-      return Trimester = 2;
-    }
-    else if( minggu >= 25 ) {
-      return Trimester = 3;
+  @override
+  void onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+    nama = TextEditingController();
+    alamat = TextEditingController();
+    hari = TextEditingController();
+    usia = TextEditingController();
+    final box = GetStorage();
+    if (box.read('dataUser') != null) {
+      final data = box.read('dataUser') as Map<String, dynamic>;
     }
   }
 
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    nama.dispose();
+    alamat.dispose();
+    hari.dispose();
+    usia.dispose();
+  }
+
+  late int Trimester = 0;
+
+  late double minggu = (harii.toDouble() / 7);
+
+  jumlahMinggu() {
+    return harii / 7;
+  }
+
+  final sisaKehamilan = (280 - harii);
+
+  funcTrimester() {
+    if (minggu < 12) {
+      return Trimester = 1;
+    } else if (minggu >= 13 && minggu < 24) {
+      return Trimester = 2;
+    } else if (minggu >= 25) {
+      return Trimester = 3;
+    }
+  }
 
   ukuranBerat() {
     if (minggu <= 7) {
@@ -195,8 +221,11 @@ class InfoController extends GetxController {
       return Text('52.5 cm');
     } else if (minggu == 43) {
       return Text('> 4000 cm');
+    } else {
+      throw Exception('anjing');
     }
   }
+
   gambarKehamilan() {
     if (minggu <= 4) {
       return Image.asset('assets/images/Buah_kandungan_4.png');
@@ -206,25 +235,32 @@ class InfoController extends GetxController {
       return Image.asset('assets/images/Buah_kandungan_9.png');
     } else if (minggu > 9 && minggu <= 11) {
       return Image.asset('assets/images/Buah_kandungan_11.png');
-    }
-    else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
-    }else if (minggu > 9 && minggu <= 11) {
-      return Image.asset('assets/images/Buah_kandungan_11.png');
+    } else if (minggu > 12 && minggu <= 14) {
+      return Image.asset('assets/images/Buah_kandungan_14.png');
+    } else if (minggu > 15 && minggu <= 16) {
+      return Image.asset('assets/images/Buah_kandungan_16.png');
+    } else if (minggu > 17 && minggu <= 18) {
+      return Image.asset('assets/images/Buah_kandungan_17.png');
+    } else if (minggu > 19 && minggu <= 20) {
+      return Image.asset('assets/images/Buah_kandungan_18.png');
+    } else if (minggu > 21 && minggu <= 22) {
+      return Image.asset('assets/images/Buah_kandungan_20.png');
+    } else if (minggu > 23 && minggu <= 24) {
+      return Image.asset('assets/images/Buah_kandungan_23.png');
+    } else if (minggu > 25 && minggu <= 27) {
+      return Image.asset('assets/images/Buah_kandungan_26.png');
+    } else if (minggu > 28 && minggu <= 32) {
+      return Image.asset('assets/images/Buah_kandungan_28.png');
+    } else if (minggu > 33 && minggu <= 34) {
+      return Image.asset('assets/images/Buah_kandungan_32.png');
+    } else if (minggu > 35 && minggu <= 36) {
+      return Image.asset('assets/images/Buah_kandungan_33.png');
+    } else if (minggu > 37 && minggu <= 38) {
+      return Image.asset('assets/images/Buah_kandungan_35.png');
+    } else if (minggu > 39 && minggu < 40) {
+      return Image.asset('assets/images/Buah_kandungan_39.png');
+    } else {
+      Text('!');
     }
   }
 }

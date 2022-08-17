@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:temani/controllers/IMTController.dart';
 import 'package:temani/logic/BMI.dart';
-import 'package:temani/view/imt_screen/inputBMI.dart';
+import 'package:get/get.dart';
 
 class BMISCREEN extends StatefulWidget {
   const BMISCREEN({Key? key}) : super(key: key);
@@ -13,57 +12,52 @@ class BMISCREEN extends StatefulWidget {
 }
 
 class _BMISCREENState extends State<BMISCREEN> {
-  Future<void> showInputDialog(BuildContext context) async {
-    
 
-    return await showDialog(
+  final imtC = Get.put(IMTController);
+
+  Future<void> _showDialog() async {
+    await showDialog<void>(
         context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Form(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  validator: ((value) {
-                    return value!.isNotEmpty ? null : "invalid";
-                  }),
-                  decoration: InputDecoration(hintText: 'Masukan berat badan'),
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  validator: ((value) {
-                    return value!.isNotEmpty ? null : "invalid";
-                  }),
-                  decoration: InputDecoration(hintText: 'Masukan tinggi badan'),
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  validator: ((value) {
-                    return value!.isNotEmpty ? null : "invalid";
-                  }),
-                  decoration: InputDecoration(
-                    hintText: 'Masukan usia',
+        builder: (BuildContext context) {
+          return Dialog(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    autocorrect: false,
+
+                    onChanged: (value) {
+                      print('data tersimpan');
+                    },
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        hintText: 'Berat', border: OutlineInputBorder()),
                   ),
-                ),
-                OutlinedButton(onPressed: () {}, child: Text('Selesai'))
-              ],
-            )),
-          );
+                  TextField(
+                    autocorrect: false,
+
+                    onChanged: (value) {
+                      print('data tersimpan');
+                    },
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        hintText: 'Tinggi', border: OutlineInputBorder()),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+
+                      print('data tersimpannn');
+                    },
+                    child: Text("OK"),
+                  )
+                ],
+              ));
         });
   }
-
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: ((_) => BMI())),
-        ListenableProvider(create: ((_) => BMI())),
-      ],
-      builder: (context, child) => SafeArea(
-        child: Scaffold(
+    return  Scaffold(
+      resizeToAvoidBottomInset: false,
           body: Container(
             child: Column(
               children: [
@@ -85,7 +79,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${Provider.of<BMI>(context).hasil.toStringAsFixed(1)}',
+                                    '',
                                     style: GoogleFonts.lato(
                                         textStyle: TextStyle(
                                             fontSize: 70,
@@ -102,7 +96,6 @@ class _BMISCREENState extends State<BMISCREEN> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      Provider.of<BMI>(context).status()
                                     ],
                                   ),
                                 ],
@@ -130,8 +123,6 @@ class _BMISCREENState extends State<BMISCREEN> {
                                     child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    child: Provider.of<BMI>(context)
-                                        .statusGambar(context),
                                   ),
                                 )),
                                 Expanded(
@@ -143,9 +134,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                                         children: [
                                           Expanded(
                                               child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
+                                            width: MediaQuery.of(context).size.width,
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -154,24 +143,20 @@ class _BMISCREENState extends State<BMISCREEN> {
                                                   'Info',
                                                   style: _BMITextStyle(),
                                                 ),
-                                                Provider.of<BMI>(context)
-                                                    .tipsStatus()
+
                                               ],
                                             ),
                                           )),
                                           Expanded(
                                               child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
+                                            width: MediaQuery.of(context).size.width,
                                             child: Column(
                                               children: [
                                                 Text(
                                                   'Saran',
                                                   style: _BMITextStyle(),
                                                 ),
-                                                Provider.of<BMI>(context)
-                                                    .saranStatus()
+
                                               ],
                                             ),
                                           ))
@@ -186,7 +171,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => InputBMI()))),
+                            onTap: () => Get.to(_showDialog()),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               child: Card(
@@ -204,41 +189,26 @@ class _BMISCREENState extends State<BMISCREEN> {
                                           style: _BMITextStyle(),
                                         ),
                                         Text(
-                                          '${Provider.of<BMI>(context).berat}',
+                                          '',
                                           style: _BMINumTextStyle(),
                                         )
                                       ],
                                     )),
                                     Expanded(
                                         child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment:MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Tinggi (cm)',
                                           style: _BMITextStyle(),
                                         ),
                                         Text(
-                                          '${Provider.of<BMI>(context).tinggi}',
+                                         '',
                                           style: _BMINumTextStyle(),
                                         )
                                       ],
                                     )),
-                                    Expanded(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Usia',
-                                          style: _BMITextStyle(),
-                                        ),
-                                        Text(
-                                          '${Provider.of<BMI>(context).usia}',
-                                          style: _BMINumTextStyle(),
-                                        )
-                                      ],
-                                    )),
+
                                   ],
                                 ),
                               ),
@@ -251,14 +221,10 @@ class _BMISCREENState extends State<BMISCREEN> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
+          )
     );
   }
 }
-
-
 
 TextStyle _BMITextStyle() {
   return GoogleFonts.lato(

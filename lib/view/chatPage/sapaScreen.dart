@@ -14,12 +14,25 @@ class _ChatPageState extends State<ChatPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Sapa Bidan',style: TextStyle(color: Colors.black),),
+          title: Text(
+            'Sapa Bidan',
+            style: TextStyle(color: Colors.black),
+          ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           foregroundColor: Colors.transparent,
-          actions: [IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.ellipsis, color: Colors.black,))],
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: FaIcon(
+                  FontAwesomeIcons.ellipsis,
+                  color: Colors.black,
+                ))
+          ],
+        ),
+        body: Center(
+          child: Text('Sedang dalam pengembangan'),
         ),
       ),
     );

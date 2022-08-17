@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:temani/controllers/InfoController.dart';
+import 'package:temani/controllers/auth.dart';
 import 'package:temani/logic/BMI.dart';
 import 'package:temani/logic/dashboard_logic.dart';
 
@@ -19,7 +20,18 @@ class Dashboarda extends StatefulWidget {
 
 class _DashboardaState extends State<Dashboarda> {
 
+  late Timer timer;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+
   InfoController info = Get.put(InfoController());
+  AuthController authC = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +65,8 @@ class _DashboardaState extends State<Dashboarda> {
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 1.4,
-                                    height:
-                                        MediaQuery.of(context).size.height / 12,
+                                    width:MediaQuery.of(context).size.width / 1.4,
+                                    height:MediaQuery.of(context).size.height / 12,
                                     decoration: BoxDecoration(
                                         color: Color(0xffC4D7E0),
                                         borderRadius: BorderRadius.only(
@@ -65,38 +75,27 @@ class _DashboardaState extends State<Dashboarda> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Expanded(
                                               child: Container(
-                                            child: Image.asset(
-                                              'assets/icons/profile_icon.png',
-                                              scale: 12,
+                                                child: Image.asset('assets/icons/profile_icon.png',scale: 12,
                                             ),
                                           )),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
+                                          SizedBox(width: 20,),
                                           Expanded(
                                             flex: 4,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment:MainAxisAlignment.center,
                                               children: [
                                                 Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Hai, ",
-                                                    style: _appbarTitleStyle(),
+                                                  alignment:Alignment.centerLeft,
+                                                  child: Text("Hai, ${authC.nama}",style: _appbarTitleStyle(),
                                                   ),
                                                 ),
                                                 Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    'Alamat',
+                                                  alignment:Alignment.centerLeft,
+                                                  child: Text('${authC.alamat}',
                                                     style: GoogleFonts.lato(
                                                         textStyle: TextStyle(
                                                             fontSize: 12)),
@@ -106,9 +105,7 @@ class _DashboardaState extends State<Dashboarda> {
                                             ),
                                           ),
                                           Expanded(
-                                              child: FaIcon(
-                                            FontAwesomeIcons.pen,
-                                            size: 15,
+                                              child: FaIcon(FontAwesomeIcons.pen,size: 15,
                                           )),
                                         ],
                                       ),
@@ -119,10 +116,16 @@ class _DashboardaState extends State<Dashboarda> {
                                     alignment: Alignment.topRight,
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 35),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.calendarDay,
-                                        size: 30,
-                                        color: Colors.white,
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          Get.find<AuthController>().logOut(false);
+                                          print('terhapus');
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.calendarDay,
+                                          size: 30,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     )),
                               ]),
@@ -132,33 +135,34 @@ class _DashboardaState extends State<Dashboarda> {
                               Expanded(
                                 child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text('${info.minggu.toStringAsFixed(0)}',style: GoogleFonts.staatliches(
-                                          textStyle: TextStyle(fontSize: 70)
-                                        ),),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Text('Minggu',))
-                                      ],
-                                    )),
-                                ),
-                              
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${info.minggu.toStringAsFixed(0)}',
+                                      style: GoogleFonts.staatliches(textStyle: TextStyle(fontSize: 70)),
+                                    ),
+                                    Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Text('Minggu',))
+                                  ],
+                                )),
+                              ),
                               Expanded(
                                 child: Container(
                                   child: Container(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text('${info.funcTrimester()}',style: GoogleFonts.staatliches(
-                                          textStyle: TextStyle(fontSize: 70)
-                                        ),),
-                                        Align(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${info.funcTrimester()}',
+                                        style: GoogleFonts.staatliches(
+                                            textStyle: TextStyle(fontSize: 70)),
+                                      ),
+                                      Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Text('Fase'))
-                                      ],
-                                    )
-                                  ),
+                                    ],
+                                  )),
                                 ),
                               )
                             ],
@@ -194,8 +198,7 @@ class _DashboardaState extends State<Dashboarda> {
                               Expanded(
                                 child: Center(
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
                                         "Tersisa :",
@@ -205,7 +208,7 @@ class _DashboardaState extends State<Dashboarda> {
                                                 fontSize: 20)),
                                       ),
                                       Text(
-                                        "",
+                                        "${info.sisaKehamilan}",
                                         style: GoogleFonts.lato(
                                             textStyle: TextStyle(
                                                 fontSize: 40,
@@ -235,23 +238,17 @@ class _DashboardaState extends State<Dashboarda> {
                                               fontWeight: FontWeight.w400,
                                               fontSize: 20))),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      FaIcon(
-                                        FontAwesomeIcons.scaleBalanced,
-                                        size: 15,
-                                      ),
+                                    mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      FaIcon(FontAwesomeIcons.scaleBalanced,size: 15,),
+
                                     ],
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      FaIcon(
-                                        FontAwesomeIcons.ruler,
-                                        size: 15,
-                                      ),
+                                      FaIcon(FontAwesomeIcons.ruler,size: 15,),
+
                                     ],
                                   )
                                 ],
@@ -276,70 +273,46 @@ class _DashboardaState extends State<Dashboarda> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
+                                          width:MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.height,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(0)),
+                                              borderRadius:BorderRadius.circular(0)),
                                           child: Card(
                                             color: Colors.white,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                              mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    padding:const EdgeInsets.all(8.0),
                                                     child: FaIcon(
-                                                      FontAwesomeIcons
-                                                          .weightScale,
+                                                      FontAwesomeIcons.weightScale,
                                                       size: 60,
                                                       color: Colors.black45,
                                                     ),
                                                   ),
-                                                  alignment:
-                                                      Alignment.topCenter,
+                                                  alignment:Alignment.topCenter,
                                                 ),
                                                 Container(
                                                   child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
+                                                    mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                                                     children: [
-                                                      Text('',
-                                                          style: GoogleFonts
-                                                              .fredokaOne(
-                                                                  textStyle: TextStyle(
-                                                                      fontSize:
-                                                                          60))),
+                                                      Text(
+                                                        '',
+                                                        style: GoogleFonts.fredokaOne(
+                                                        textStyle: TextStyle(fontSize:60))),
                                                       Container(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
+                                                        alignment: Alignment.bottomCenter,
+                                                        width: MediaQuery.of(context).size.width,
                                                         child: Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 20),
+                                                          padding:EdgeInsets.only(top: 20),
                                                           child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
+                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
                                                             children: [
                                                               Column(
                                                                 children: [
-                                                                  Text(
-                                                                    '',
+                                                                  Text('',
                                                                     style:
                                                                         _infoBMIStyle(),
                                                                   ),
@@ -379,28 +352,18 @@ class _DashboardaState extends State<Dashboarda> {
                                     ),
                                     Expanded(
                                       child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: MediaQuery.of(context)
-                                              .size
-                                              .height,
+                                          width:MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.height,
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
+                                              borderRadius: BorderRadius.circular(30)),
                                           child: Card(
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                              mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Container(
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: FaIcon(
-                                                      FontAwesomeIcons.bowlFood,
-                                                      size: 60,
-                                                      color: Colors.black45,
+                                                    padding:const EdgeInsets.all(8.0),
+                                                    child: FaIcon(FontAwesomeIcons.bowlFood,size: 60,color: Colors.black45,
                                                     ),
                                                   ),
                                                 ),
@@ -409,31 +372,16 @@ class _DashboardaState extends State<Dashboarda> {
                                                     children: [
                                                       Text(
                                                         '',
-                                                        style: GoogleFonts
-                                                            .fredokaOne(
-                                                                textStyle:
-                                                                    TextStyle(
-                                                                        fontSize:
-                                                                            50)),
+                                                        style: GoogleFonts.fredokaOne(textStyle:TextStyle(fontSize:50)),
                                                       ),
                                                       Container(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
+                                                          alignment: Alignment.bottomCenter,
+                                                          width: MediaQuery.of(context).size.width,
                                                           child: Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 40),
+                                                            padding:EdgeInsets.only(top: 40),
                                                             child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
+                                                              mainAxisAlignment:MainAxisAlignment.spaceAround,
+                                                              crossAxisAlignment:CrossAxisAlignment.center,
                                                               children: [
                                                                 Column(
                                                                   children: [

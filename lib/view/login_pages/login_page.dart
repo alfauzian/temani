@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:temani/controllers/InfoController.dart';
+import 'package:temani/controllers/auth.dart';
 import 'package:temani/view/mainPage.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -8,8 +10,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final loginController = Get.put(InfoController());
+    final loginC = Get.put(InfoController());
+    final authC = Get.put(AuthController());
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -30,34 +32,48 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextField(
                         autocorrect: false,
+                        controller: loginC.nama,
                         decoration: InputDecoration(
                             hintText: 'Nama', border: OutlineInputBorder()),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextField(
                         autocorrect: false,
+                        controller: loginC.alamat,
                         decoration: InputDecoration(
                             hintText: 'Alamat', border: OutlineInputBorder()),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Expanded(
                             child: TextField(
                               autocorrect: false,
+                              controller: loginC.hari,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   hintText: 'Hari kehamilan',
                                   border: OutlineInputBorder()),
                             ),
                           ),
-                          SizedBox(width: 20,),
+                          SizedBox(
+                            width: 20,
+                          ),
                           Expanded(
                             child: TextField(
                               autocorrect: false,
+                              controller: loginC.usia,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   hintText: 'Usia ',
                                   border: OutlineInputBorder()),
@@ -68,13 +84,24 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
+                      Obx(() => CheckboxListTile(
+                          title: Text('Simpan data'),
+                          value: loginC.rememberMe.value,
+                          onChanged: (value) => loginC.rememberMe.toggle())),
                       SizedBox(
                         width: double.infinity,
                         height: 40,
                         child: ElevatedButton(
-                          onPressed: () => Get.off(BottomNavBar()), 
-                          child: Text('Lanjutkan')),
-                      )
+                            onPressed: () {
+                              authC.login(
+                                  loginC.nama.text,
+                                  loginC.alamat.text,
+                                  loginC.hari.text.length,
+                                  loginC.usia.text.length,
+                                  loginC.rememberMe.value);
+                            },
+                            child: Text('Lanjutkan')),
+                      ),
                     ],
                   ),
                 ),

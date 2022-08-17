@@ -3,56 +3,42 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:temani/view/homescreen/homepage.dart';
+import 'package:temani/controllers/auth.dart';
 import 'package:temani/view/login_pages/login_page.dart';
 import 'dart:async';
 import 'package:temani/view/mainPage.dart';
+import 'package:temani/view/splash_screen/splash_screen.dart';
 
 import 'logic/BMI.dart';
 
 void main() async {
-  Provider.debugCheckInvalidValueType = null;
-  WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage().initStorage;
-  runApp(MyApp(),);
-}
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Timer(
-        Duration(seconds: 3),
-        (() => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => LoginScreen())))));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(child: Image.asset('assets/images/logo_login.png')),
-    );
-  }
+  await GetStorage.init();
+  runApp(MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final authC = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'Open-Sans'),
-        debugShowCheckedModeBanner: false,
-        home: BottomNavBar(),
-        );
+    return FutureBuilder(
+        future: authC.autoLogin(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Obx(
+              () => GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                home: authC.isAuth.isTrue ? BottomNavBar() : LoginScreen(),
+              ),
+            );
+          }
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: SplashScreen(),
+            ),
+          );
+        });
   }
 }
