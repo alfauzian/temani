@@ -8,13 +8,23 @@ import 'package:temani/models/infoKehamilan.dart';
 class InfoController extends GetxController {
   static final authC = Get.put(AuthController());
 
-  static int harii = authC.hari;
+  static final day = GetStorage();
+
+  inputHari(int days) {
+    day.write('Hari', day);
+  }
+
+
+
+
+  static int harii = 12;
   var rememberMe = false.obs;
 
   late TextEditingController nama;
   late TextEditingController alamat;
   late TextEditingController hari;
   late TextEditingController usia;
+
 
   @override
   void onInit() async {
@@ -42,13 +52,13 @@ class InfoController extends GetxController {
 
   late int Trimester = 0;
 
-  late double minggu = (harii.toDouble() / 7);
 
-  jumlahMinggu() {
-    return harii / 7;
-  }
+  static int awalMinggu = 7;
+  final minggu = harii / awalMinggu;
 
-  final sisaKehamilan = (280 - harii);
+
+  static int sisa = 280;
+  final sisaKehamilan = sisa - harii;
 
   funcTrimester() {
     if (minggu < 12) {

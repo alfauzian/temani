@@ -3,13 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:temani/controllers/InfoController.dart';
 import 'package:temani/controllers/auth.dart';
-import 'package:temani/logic/BMI.dart';
-import 'package:temani/logic/dashboard_logic.dart';
+
 
 class Dashboarda extends StatefulWidget {
   const Dashboarda({Key? key}) : super(key: key);
@@ -19,6 +17,23 @@ class Dashboarda extends StatefulWidget {
 }
 
 class _DashboardaState extends State<Dashboarda> {
+
+  Future<void> _showDialog() async {
+    await showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: TextField(
+            autocorrect: false,
+
+          ),
+        );
+      }
+
+    );
+
+  }
+
 
   late Timer timer;
 
@@ -32,6 +47,7 @@ class _DashboardaState extends State<Dashboarda> {
 
   InfoController info = Get.put(InfoController());
   AuthController authC = Get.put(AuthController());
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +106,12 @@ class _DashboardaState extends State<Dashboarda> {
                                               children: [
                                                 Align(
                                                   alignment:Alignment.centerLeft,
-                                                  child: Text("Hai, ${authC.nama}",style: _appbarTitleStyle(),
+                                                  child: Text("Hai, ${box.read('dataUser')['nama'] ?? ''}",style: _appbarTitleStyle(),
                                                   ),
                                                 ),
                                                 Align(
                                                   alignment:Alignment.centerLeft,
-                                                  child: Text('${authC.alamat}',
+                                                  child: Text('${box.read('dataUser')['alamat'] ?? ''}',
                                                     style: GoogleFonts.lato(
                                                         textStyle: TextStyle(
                                                             fontSize: 12)),
@@ -104,9 +120,7 @@ class _DashboardaState extends State<Dashboarda> {
                                               ],
                                             ),
                                           ),
-                                          Expanded(
-                                              child: FaIcon(FontAwesomeIcons.pen,size: 15,
-                                          )),
+
                                         ],
                                       ),
                                     ),
@@ -118,8 +132,8 @@ class _DashboardaState extends State<Dashboarda> {
                                       padding: const EdgeInsets.only(right: 35),
                                       child: GestureDetector(
                                         onTap: (){
-                                          Get.find<AuthController>().logOut(false);
-                                          print('terhapus');
+                                          _showDialog();
+
                                         },
                                         child: FaIcon(
                                           FontAwesomeIcons.calendarDay,

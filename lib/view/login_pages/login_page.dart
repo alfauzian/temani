@@ -53,34 +53,6 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              autocorrect: false,
-                              controller: loginC.hari,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  hintText: 'Hari kehamilan',
-                                  border: OutlineInputBorder()),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: TextField(
-                              autocorrect: false,
-                              controller: loginC.usia,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  hintText: 'Usia ',
-                                  border: OutlineInputBorder()),
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -96,8 +68,6 @@ class LoginScreen extends StatelessWidget {
                               authC.login(
                                   loginC.nama.text,
                                   loginC.alamat.text,
-                                  loginC.hari.text.length,
-                                  loginC.usia.text.length,
                                   loginC.rememberMe.value);
                             },
                             child: Text('Lanjutkan')),

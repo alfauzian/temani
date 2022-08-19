@@ -6,10 +6,13 @@ import 'package:temani/models/IMT.dart';
 
 class IMTController extends GetxController{
 
-  final box = GetStorage();
+  static final imt = GetStorage();
 
   late TextEditingController berat;
   late TextEditingController tinggi;
+
+  static final beratC = imt.read('imtUser')['berat'];
+  static final tinggiC = imt.read('imtUser')['tinggi'];
 
 
   @override
@@ -26,13 +29,7 @@ class IMTController extends GetxController{
     tinggi.dispose();
   }
 
-  Map<String, dynamic> toMap() {
-    return {'berat': berat, 'tinggi': tinggi};
-  }
 
-  IMTController.fromMap(Map map):
-        berat = map['berat'],
-        tinggi = map['tinggi'];
 
   void dialogError(String msg) {
     Get.defaultDialog(title: "Terjadi kesalahan", middleText: msg);
@@ -40,7 +37,7 @@ class IMTController extends GetxController{
 
   void inputBMI(int beratUser, int tinggiUser) async{
     if(beratUser != 0 && tinggiUser != 0){
-      box.write('imtUser', {
+      imt.write('imtUser', {
         'berat':beratUser,
         'tinggi':tinggiUser
       });
