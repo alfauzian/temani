@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:temani/controllers/auth.dart';
 import 'package:temani/view/login_pages/login_page.dart';
 import 'dart:async';
 import 'package:temani/view/mainPage.dart';
 import 'package:temani/view/splash_screen/splash_screen.dart';
-
-import 'logic/BMI.dart';
 
 void main() async {
   await GetStorage.init();

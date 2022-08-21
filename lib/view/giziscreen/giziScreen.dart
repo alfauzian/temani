@@ -4,9 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:provider/provider.dart';
-import 'package:temani/logic/BMI.dart';
-import 'package:temani/logic/dashboard_logic.dart';
 import 'package:temani/view/giziscreen/listGizi.dart';
 import 'package:temani/widgets/gizi_card.dart';
 

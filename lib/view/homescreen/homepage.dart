@@ -23,9 +23,18 @@ class _DashboardaState extends State<Dashboarda> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          child: TextField(
-            autocorrect: false,
-
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                autocorrect: false,
+                keyboardType: TextInputType.number,
+                controller:info.hari,
+              ),
+              ElevatedButton(onPressed: (){
+                info.inputHari(info.hari.text.length);
+              }, child: Text('OK'))
+            ],
           ),
         );
       }

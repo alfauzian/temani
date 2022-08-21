@@ -11,8 +11,8 @@ class IMTController extends GetxController{
   late TextEditingController berat;
   late TextEditingController tinggi;
 
-  static final beratC = imt.read('imtUser')['berat'];
-  static final tinggiC = imt.read('imtUser')['tinggi'];
+  static final beratC = imt.read('imtUser')['berat'] ?? 1;
+  static final tinggiC = imt.read('imtUser')['tinggi'] ?? 1;
 
 
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:temani/controllers/IMTController.dart';
-import 'package:temani/logic/BMI.dart';
 import 'package:get/get.dart';
 
 class BMISCREEN extends StatefulWidget {
@@ -25,10 +24,6 @@ class _BMISCREENState extends State<BMISCREEN> {
                 children: [
                   TextField(
                     autocorrect: false,
-
-                    onChanged: (value) {
-                      print('data tersimpan');
-                    },
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         hintText: 'Berat', border: OutlineInputBorder()),

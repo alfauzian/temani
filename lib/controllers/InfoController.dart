@@ -11,13 +11,13 @@ class InfoController extends GetxController {
   static final day = GetStorage();
 
   inputHari(int days) {
-    day.write('Hari', day);
+    day.write('Hari', days);
   }
 
+  static final hariKehamilan = day.read('Hari') ?? 1;
 
 
-
-  static int harii = 12;
+  static int harii = 90;
   var rememberMe = false.obs;
 
   late TextEditingController nama;
@@ -50,8 +50,6 @@ class InfoController extends GetxController {
     usia.dispose();
   }
 
-  late int Trimester = 0;
-
 
   static int awalMinggu = 7;
   final minggu = harii / awalMinggu;
@@ -59,6 +57,8 @@ class InfoController extends GetxController {
 
   static int sisa = 280;
   final sisaKehamilan = sisa - harii;
+
+  late int Trimester = funcTrimester();
 
   funcTrimester() {
     if (minggu < 12) {
