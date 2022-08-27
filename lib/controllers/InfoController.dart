@@ -1,30 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:temani/controllers/auth.dart';
 
-import 'package:temani/models/infoKehamilan.dart';
-
 class InfoController extends GetxController {
   static final authC = Get.put(AuthController());
 
-  static final day = GetStorage();
+  static final box = GetStorage();
 
-  inputHari(int days) {
-    day.write('Hari', days);
-  }
-
-  static final hariKehamilan = day.read('Hari') ?? 1;
-
-
-  static int harii = 90;
   var rememberMe = false.obs;
 
+  static int readHari = box.read('dataUser')['hari'] ?? 1;
+
+  late Timer _timer;
+
+  void StartTimer() {
+    //waktu akan bertambah dalam kurun waktu 1 hari
+    //jika hari = 0, maka timer ini akan diberhentikan
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      if (readHari > 0) {
+        readHari++;
+      } else if (readHari == 0) {
+        _timer.cancel();
+      }
+    });
+  }
+
+  void stopTimer() {}
+
+  @override
   late TextEditingController nama;
   late TextEditingController alamat;
   late TextEditingController hari;
   late TextEditingController usia;
-
 
   @override
   void onInit() async {
@@ -50,21 +60,17 @@ class InfoController extends GetxController {
     usia.dispose();
   }
 
+  static num? sisaKehamilan = 280 - readHari;
 
-  static int awalMinggu = 7;
-  final minggu = harii / awalMinggu;
+  late int Trimester = 1;
 
-
-  static int sisa = 280;
-  final sisaKehamilan = sisa - harii;
-
-  late int Trimester = funcTrimester();
+  static late double minggu = readHari / 7;
 
   funcTrimester() {
     if (minggu < 12) {
       return Trimester = 1;
     } else if (minggu >= 13 && minggu < 24) {
-      return Trimester = 2;
+      return Trimester != 2;
     } else if (minggu >= 25) {
       return Trimester = 3;
     }
@@ -145,94 +151,98 @@ class InfoController extends GetxController {
       return Text('3685 cm');
     } else if (minggu == 43) {
       return Text('> 4000 cm');
+    } else {
+      return ' ';
     }
   }
 
+  static late double _minggu = readHari / 7;
+
   ukuranPanjang() {
-    if (minggu <= 4) {
+    if (_minggu <= 4) {
       return Text('< 0.1 cm');
-    } else if (minggu == 5) {
+    } else if (_minggu == 5) {
       return Text('0.12cm');
-    } else if (minggu == 6) {
+    } else if (_minggu == 6) {
       return Text('0.3cm');
-    } else if (minggu == 7) {
+    } else if (_minggu == 7) {
       return Text('1.27 cm');
-    } else if (minggu == 8) {
+    } else if (_minggu == 8) {
       return Text('1.6 cm');
-    } else if (minggu == 9) {
+    } else if (_minggu == 9) {
       return Text('2.3 cm');
-    } else if (minggu == 9) {
+    } else if (_minggu == 9) {
       return Text('3.1 cm');
-    } else if (minggu == 10) {
+    } else if (_minggu == 10) {
       return Text('3.1 cm');
-    } else if (minggu == 11) {
+    } else if (_minggu == 11) {
       return Text('4.1 cm');
-    } else if (minggu == 12) {
+    } else if (_minggu == 12) {
       return Text('5.4 cm');
-    } else if (minggu == 13) {
+    } else if (_minggu == 13) {
       return Text('7.4 cm');
-    } else if (minggu == 14) {
+    } else if (_minggu == 14) {
       return Text('8.7 cm');
-    } else if (minggu == 15) {
+    } else if (_minggu == 15) {
       return Text('10.1 cm');
-    } else if (minggu == 16) {
+    } else if (_minggu == 16) {
       return Text('11.6 cm');
-    } else if (minggu == 17) {
+    } else if (_minggu == 17) {
       return Text('13 cm');
-    } else if (minggu == 18) {
+    } else if (_minggu == 18) {
       return Text('14.2 cm');
-    } else if (minggu == 19) {
+    } else if (_minggu == 19) {
       return Text('15.3 cm');
-    } else if (minggu == 20) {
+    } else if (_minggu == 20) {
       return Text('16.4 cm');
-    } else if (minggu == 21) {
+    } else if (_minggu == 21) {
       return Text('26.7 cm');
-    } else if (minggu == 22) {
+    } else if (_minggu == 22) {
       return Text('27.8 cm');
-    } else if (minggu == 23) {
+    } else if (_minggu == 23) {
       return Text('28.9 cm');
-    } else if (minggu == 24) {
+    } else if (_minggu == 24) {
       return Text('30 cm');
-    } else if (minggu == 25) {
+    } else if (_minggu == 25) {
       return Text('34.6 cm');
-    } else if (minggu == 26) {
+    } else if (_minggu == 26) {
       return Text('35.6 cm');
-    } else if (minggu == 27) {
+    } else if (_minggu == 27) {
       return Text('37.6 cm');
-    } else if (minggu == 28) {
+    } else if (_minggu == 28) {
       return Text('38.6 cm');
-    } else if (minggu == 29) {
+    } else if (_minggu == 29) {
       return Text('39.9 cm');
-    } else if (minggu == 30) {
+    } else if (_minggu == 30) {
       return Text('39.9 cm');
-    } else if (minggu == 31) {
+    } else if (_minggu == 31) {
       return Text('41.1 cm');
-    } else if (minggu == 32) {
+    } else if (_minggu == 32) {
       return Text('42.2 cm');
-    } else if (minggu == 33) {
+    } else if (_minggu == 33) {
       return Text('43.7 cm');
-    } else if (minggu == 34) {
+    } else if (_minggu == 34) {
       return Text('45 cm');
-    } else if (minggu == 35) {
+    } else if (_minggu == 35) {
       return Text('46.2 cm');
-    } else if (minggu == 36) {
+    } else if (_minggu == 36) {
       return Text('47.4 cm');
-    } else if (minggu == 37) {
+    } else if (_minggu == 37) {
       return Text('48.6 cm');
-    } else if (minggu == 38) {
+    } else if (_minggu == 38) {
       return Text('49.8 cm');
-    } else if (minggu == 39) {
+    } else if (_minggu == 39) {
       return Text('50.7 cm');
-    } else if (minggu == 40) {
+    } else if (_minggu == 40) {
       return Text('51,2cm');
-    } else if (minggu == 41) {
+    } else if (_minggu == 41) {
       return Text('51.7 cm');
-    } else if (minggu == 42) {
+    } else if (_minggu == 42) {
       return Text('52.5 cm');
-    } else if (minggu == 43) {
+    } else if (_minggu == 43) {
       return Text('> 4000 cm');
     } else {
-      throw Exception('anjing');
+      return ' ';
     }
   }
 

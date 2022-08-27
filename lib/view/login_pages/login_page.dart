@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:temani/controllers/InfoController.dart';
 import 'package:temani/controllers/auth.dart';
-import 'package:temani/view/mainPage.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -53,6 +51,14 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
+                      TextField(
+                        autocorrect: false,
+                        controller: loginC.hari,
+                        keyboardType: TextInputType.number,
+                        decoration:  InputDecoration(
+                          hintText: "Usia Kehamilan", border:  OutlineInputBorder(),
+                        ),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -68,7 +74,10 @@ class LoginScreen extends StatelessWidget {
                               authC.login(
                                   loginC.nama.text,
                                   loginC.alamat.text,
-                                  loginC.rememberMe.value);
+                                  loginC.rememberMe.value,
+                                  int.parse(loginC.hari.text)
+                                );
+                              loginC.StartTimer();
                             },
                             child: Text('Lanjutkan')),
                       ),

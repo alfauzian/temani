@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:temani/controllers/IMTController.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:temani/controllers/IMTController.dart';
+import 'package:temani/view/imt_screen/BMIdialog.dart';
 
 class BMISCREEN extends StatefulWidget {
   const BMISCREEN({Key? key}) : super(key: key);
@@ -12,46 +17,12 @@ class BMISCREEN extends StatefulWidget {
 
 class _BMISCREENState extends State<BMISCREEN> {
 
-  final imtC = Get.put(IMTController);
+  IMTController imtC = Get.put(IMTController());
+  static final box = GetStorage();
 
-  Future<void> _showDialog() async {
-    await showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    autocorrect: false,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        hintText: 'Berat', border: OutlineInputBorder()),
-                  ),
-                  TextField(
-                    autocorrect: false,
-
-                    onChanged: (value) {
-                      print('data tersimpan');
-                    },
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        hintText: 'Tinggi', border: OutlineInputBorder()),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-
-                      print('data tersimpannn');
-                    },
-                    child: Text("OK"),
-                  )
-                ],
-              ));
-        });
-  }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
           body: Container(
             child: Column(
@@ -70,11 +41,11 @@ class _BMISCREENState extends State<BMISCREEN> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
+                              Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '',
+                                    '${IMTController.bmi.toStringAsFixed(1)}',
                                     style: GoogleFonts.lato(
                                         textStyle: TextStyle(
                                             fontSize: 70,
@@ -84,7 +55,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                                   Column(
                                     children: [
                                       Text(
-                                        'BMI',
+                                        'IMT',
                                         style: GoogleFonts.lato(
                                           textStyle: TextStyle(
                                               fontSize: 36,
@@ -118,43 +89,30 @@ class _BMISCREENState extends State<BMISCREEN> {
                                     child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
+                                    child: imtC.statusGambarBMI(),
                                   ),
                                 )),
                                 Expanded(
                                     flex: 2,
                                     child: Container(
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Expanded(
                                               child: Container(
                                             width: MediaQuery.of(context).size.width,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Text(
                                                   'Info',
                                                   style: _BMITextStyle(),
                                                 ),
+                                                Text('${imtC.statusBMI()}', style: _BMINumTextStyle(),),
 
                                               ],
                                             ),
                                           )),
-                                          Expanded(
-                                              child: Container(
-                                            width: MediaQuery.of(context).size.width,
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  'Saran',
-                                                  style: _BMITextStyle(),
-                                                ),
-
-                                              ],
-                                            ),
-                                          ))
                                         ],
                                       ),
                                     ))
@@ -166,7 +124,7 @@ class _BMISCREENState extends State<BMISCREEN> {
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: GestureDetector(
-                            onTap: () => Get.to(_showDialog()),
+                            onTap: () => showDialog(context: context, builder: (context) => BMIDialog()),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               child: Card(
@@ -183,10 +141,8 @@ class _BMISCREENState extends State<BMISCREEN> {
                                           'Berat (kg)',
                                           style: _BMITextStyle(),
                                         ),
-                                        Text(
-                                          '',
-                                          style: _BMINumTextStyle(),
-                                        )
+                                        Text('${box.read('imt')?['berat'] ?? 0}',style: _BMINumTextStyle()),
+
                                       ],
                                     )),
                                     Expanded(
@@ -198,12 +154,11 @@ class _BMISCREENState extends State<BMISCREEN> {
                                           style: _BMITextStyle(),
                                         ),
                                         Text(
-                                         '',
+                                         '${(box.read('imt')?['tinggi'] ?? 0)}',
                                           style: _BMINumTextStyle(),
                                         )
                                       ],
                                     )),
-
                                   ],
                                 ),
                               ),

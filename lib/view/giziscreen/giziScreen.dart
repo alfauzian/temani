@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:temani/view/giziscreen/listGizi.dart';
-import 'package:temani/widgets/gizi_card.dart';
+import 'package:temani/view/giziscreen/giziList.dart';
 
 class GiziScreen extends StatefulWidget {
   const GiziScreen({Key? key}) : super(key: key);
@@ -15,50 +14,16 @@ class GiziScreen extends StatefulWidget {
 }
 
 class _GiziScreenState extends State<GiziScreen> {
-  Future<void> _showDialog() async {
-    await showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-              child: Column(
-            children: [
-              TextField(
-                autocorrect: false,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: 'Karbohidrat', border: OutlineInputBorder()),
-              ),
-              TextField(
-                autocorrect: false,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: 'Protein', border: OutlineInputBorder()),
-              ),
-              TextField(
-                autocorrect: false,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: 'Lemak', border: OutlineInputBorder()),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("OK"),
-              )
-            ],
-          ));
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Color(0xffF190B7),
-        onPressed: () => _showDialog(),
-        label: Text("Tambah list"),
+        onPressed: () {},
+        label: Text('Tambah gizi'),
+        backgroundColor: Color(0xffFFC4C4),
         icon: Icon(Icons.add),
       ),
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -108,7 +73,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "",
+                                          "960",
                                           style: TextStyle(
                                               fontSize: 23,
                                               color: Colors.white),
@@ -150,7 +115,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   barRadius: Radius.circular(12),
                                 ),
                                 Text(
-                                  " gram",
+                                  "230 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -173,7 +138,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   barRadius: Radius.circular(12),
                                 ),
                                 Text(
-                                  " gram",
+                                  "120 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -196,7 +161,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   lineHeight: 10,
                                 ),
                                 Text(
-                                  " gram",
+                                  "200 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -236,13 +201,13 @@ class _GiziScreenState extends State<GiziScreen> {
                                   style: _textInfoStyle(),
                                 ),
                                 Text(
-                                  '',
+                                  '1240',
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           color: Colors.white, fontSize: 50)),
                                 ),
                                 Text(
-                                  "kg",
+                                  "kcal",
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           color: Colors.white, fontSize: 40)),
@@ -270,9 +235,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                 textStyle: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600)),
                           ),
-                          Flexible(
-                              child:
-                                  SingleChildScrollView(child: ListCardGizi()))
+                          Flexible(child: Container())
                         ],
                       )))
             ],

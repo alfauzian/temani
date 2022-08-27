@@ -17,19 +17,19 @@ class AuthController extends GetxController {
     if (box.read("dataUser") != null) {
       final data = box.read("dataUser") as Map<String, dynamic>;
       login(data["nama"], data["alamat"],
-          data["rememberMe"]);
+          data["rememberMe"], data['hari']);
     }
   }
 
-  void login(String namaUser, String alamatUser,
-      bool rememberMe) async {
-    if (namaUser != '' && alamatUser != '' && rememberMe == true) {
+  void login(String namaUser, String alamatUser, bool rememberMe, int hari) async {
+    if (namaUser != '' && alamatUser != '' && rememberMe == true && hari != null) {
       if (rememberMe) {
         final box = GetStorage();
         box.write('dataUser', {
           "nama": namaUser,
           "alamat": alamatUser,
-          "rememberMe": rememberMe
+          "rememberMe": rememberMe,
+          "hari":hari
         });
       } else {
         final box = GetStorage();
@@ -50,9 +50,6 @@ class AuthController extends GetxController {
     final box = GetStorage();
     if (box.read('dataUser') != null) {
       box.erase();
-      box.write('dataUser', {
-        'hari': 1
-      });
     }
     dialogError("data telah dihapus");
     isAuth.value = false;
