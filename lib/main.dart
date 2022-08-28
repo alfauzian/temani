@@ -4,8 +4,6 @@ import 'package:temani/controllers/auth.dart';
 import 'package:temani/view/login_pages/login_page.dart';
 import 'package:temani/view/mainPage.dart';
 import 'package:temani/view/splash_screen/splash_screen.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {

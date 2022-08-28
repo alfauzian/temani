@@ -55,8 +55,9 @@ class LoginScreen extends StatelessWidget {
                         autocorrect: false,
                         controller: loginC.hari,
                         keyboardType: TextInputType.number,
-                        decoration:  InputDecoration(
-                          hintText: "Usia Kehamilan", border:  OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          hintText: "Usia Kehamilan",
+                          border: OutlineInputBorder(),
                         ),
                       ),
                       SizedBox(
@@ -72,12 +73,11 @@ class LoginScreen extends StatelessWidget {
                         child: ElevatedButton(
                             onPressed: () {
                               authC.login(
-                                  loginC.nama.text,
-                                  loginC.alamat.text,
-                                  loginC.rememberMe.value,
-                                  int.parse(loginC.hari.text)
-                                );
-                              loginC.StartTimer();
+                                loginC.nama.text,
+                                loginC.alamat.text,
+                                loginC.rememberMe.value,
+                              );
+                              authC.inputHari(int.parse(loginC.hari.text));
                             },
                             child: Text('Lanjutkan')),
                       ),

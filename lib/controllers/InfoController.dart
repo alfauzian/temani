@@ -12,23 +12,23 @@ class InfoController extends GetxController {
 
   var rememberMe = false.obs;
 
-  static int readHari = box.read('dataUser')['hari'] ?? 1;
+  static int readHari = box.read('hari') ?? 1;
 
   late Timer _timer;
 
   void StartTimer() {
-    //waktu akan bertambah dalam kurun waktu 1 hari
-    //jika hari = 0, maka timer ini akan diberhentikan
+    int _hari = functionHari();
+    //Waktu akan bertambah dalam kurun waktu 1 hari
+    //Jika hari = 0, maka timer ini akan diberhentikan
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      if (readHari > 0) {
-        readHari++;
-      } else if (readHari == 0) {
+      if (_hari > 0) {
+        _hari++;
+        update();
+      } else if (readHari != 0) {
         _timer.cancel();
       }
     });
   }
-
-  void stopTimer() {}
 
   @override
   late TextEditingController nama;
@@ -60,224 +60,232 @@ class InfoController extends GetxController {
     usia.dispose();
   }
 
-  static num? sisaKehamilan = 280 - readHari;
+  sisaHari() {
+    int sisa = 280;
+    return sisa - functionHari();
+  }
 
-  late int Trimester = 1;
+  statusMinggu() {
+    final _minggu = (int.parse(hari.text) / 7).toInt();
+    return _minggu;
+  }
 
-  static late double minggu = readHari / 7;
+  int functionHari() {
+    final statusHari = int.parse(hari.text);
+    return statusHari;
+  }
 
   funcTrimester() {
-    if (minggu < 12) {
+    late int Trimester = 1;
+    if (statusMinggu() <= 12) {
       return Trimester = 1;
-    } else if (minggu >= 13 && minggu < 24) {
-      return Trimester != 2;
-    } else if (minggu >= 25) {
+    } else if (statusMinggu() >= 13 && statusMinggu() < 24) {
+      return Trimester = 2;
+    } else if (statusMinggu() >= 25) {
       return Trimester = 3;
     }
   }
 
-  ukuranBerat() {
-    if (minggu <= 7) {
-      return Text('< 1 cm');
-    } else if (minggu == 8) {
-      return Text('1 cm');
-    } else if (minggu == 9) {
-      return Text('2 cm');
-    } else if (minggu == 10) {
-      return Text('4 cm');
-    } else if (minggu == 11) {
-      return Text('7 cm');
-    } else if (minggu == 12) {
-      return Text('14 cm');
-    } else if (minggu == 13) {
-      return Text('23 cm');
-    } else if (minggu == 14) {
-      return Text('43 cm');
-    } else if (minggu == 15) {
-      return Text('70 cm');
-    } else if (minggu == 16) {
-      return Text('100 cm');
-    } else if (minggu == 17) {
-      return Text('140 cm');
-    } else if (minggu == 18) {
-      return Text('190 cm');
-    } else if (minggu == 19) {
-      return Text('240 cm');
-    } else if (minggu == 20) {
-      return Text('300 cm');
-    } else if (minggu == 21) {
-      return Text('360 cm');
-    } else if (minggu == 22) {
-      return Text('430 cm');
-    } else if (minggu == 23) {
-      return Text('501 cm');
-    } else if (minggu == 24) {
-      return Text('600 cm');
-    } else if (minggu == 25) {
-      return Text('660 cm');
-    } else if (minggu == 26) {
-      return Text('760 cm');
-    } else if (minggu == 27) {
-      return Text('875 cm');
-    } else if (minggu == 28) {
-      return Text('1005 cm');
-    } else if (minggu == 29) {
-      return Text('1153 cm');
-    } else if (minggu == 30) {
-      return Text('1319 cm');
-    } else if (minggu == 31) {
-      return Text('1502 cm');
-    } else if (minggu == 32) {
-      return Text('1702 cm');
-    } else if (minggu == 33) {
-      return Text('1918 cm');
-    } else if (minggu == 34) {
-      return Text('2146 cm');
-    } else if (minggu == 35) {
-      return Text('2386 cm');
-    } else if (minggu == 36) {
-      return Text('2622 cm');
-    } else if (minggu == 37) {
-      return Text('2859 cm');
-    } else if (minggu == 38) {
-      return Text('3083 cm');
-    } else if (minggu == 39) {
-      return Text('3288 cm');
-    } else if (minggu == 40) {
-      return Text('3462 cm');
-    } else if (minggu == 41) {
-      return Text('3597 cm');
-    } else if (minggu == 42) {
-      return Text('3685 cm');
-    } else if (minggu == 43) {
-      return Text('> 4000 cm');
+  Text ukuranBerat() {
+    if (statusMinggu() <= 7) {
+      return Text('< 1 g');
+    } else if (statusMinggu() == 8) {
+      return Text('1 g');
+    } else if (statusMinggu() == 9) {
+      return Text('2 g');
+    } else if (statusMinggu() == 10) {
+      return Text('4 g');
+    } else if (statusMinggu() == 11) {
+      return Text('7 g');
+    } else if (statusMinggu() == 12) {
+      return Text('14 g');
+    } else if (statusMinggu() == 13) {
+      return Text('23 g');
+    } else if (statusMinggu() == 14) {
+      return Text('43 g');
+    } else if (statusMinggu() == 15) {
+      return Text('70 g');
+    } else if (statusMinggu() == 16) {
+      return Text('100 g');
+    } else if (statusMinggu() == 17) {
+      return Text('140 g');
+    } else if (statusMinggu() == 18) {
+      return Text('190 g');
+    } else if (statusMinggu() == 19) {
+      return Text('240 g');
+    } else if (statusMinggu() == 20) {
+      return Text('300 g');
+    } else if (statusMinggu() == 21) {
+      return Text('360 g');
+    } else if (statusMinggu() == 22) {
+      return Text('430 g');
+    } else if (statusMinggu() == 23) {
+      return Text('501 g');
+    } else if (statusMinggu() == 24) {
+      return Text('600 g');
+    } else if (statusMinggu() == 25) {
+      return Text('660 g');
+    } else if (statusMinggu() == 26) {
+      return Text('760 g');
+    } else if (statusMinggu() == 27) {
+      return Text('875 g');
+    } else if (statusMinggu() == 28) {
+      return Text('1005 g');
+    } else if (statusMinggu() == 29) {
+      return Text('1153 g');
+    } else if (statusMinggu() == 30) {
+      return Text('1319 g');
+    } else if (statusMinggu() == 31) {
+      return Text('1502 g');
+    } else if (statusMinggu() == 32) {
+      return Text('1702 g');
+    } else if (statusMinggu() == 33) {
+      return Text('1918 g');
+    } else if (statusMinggu() == 34) {
+      return Text('2146 g');
+    } else if (statusMinggu() == 35) {
+      return Text('2386 g');
+    } else if (statusMinggu() == 36) {
+      return Text('2622 g');
+    } else if (statusMinggu() == 37) {
+      return Text('2859 g');
+    } else if (statusMinggu() == 38) {
+      return Text('3083 g');
+    } else if (statusMinggu() == 39) {
+      return Text('3288 g');
+    } else if (statusMinggu() == 40) {
+      return Text('3462 g');
+    } else if (statusMinggu() == 41) {
+      return Text('3597 g');
+    } else if (statusMinggu() == 42) {
+      return Text('3685 g');
+    } else if (statusMinggu() == 43) {
+      return Text('> 4000 g');
     } else {
-      return ' ';
+      return Text(' ');
     }
   }
 
-  static late double _minggu = readHari / 7;
-
-  ukuranPanjang() {
-    if (_minggu <= 4) {
+  Text ukuranPanjang() {
+    if (statusMinggu() <= 4) {
       return Text('< 0.1 cm');
-    } else if (_minggu == 5) {
+    } else if (statusMinggu() <= 5) {
       return Text('0.12cm');
-    } else if (_minggu == 6) {
+    } else if (statusMinggu() == 6) {
       return Text('0.3cm');
-    } else if (_minggu == 7) {
+    } else if (statusMinggu() == 7) {
       return Text('1.27 cm');
-    } else if (_minggu == 8) {
+    } else if (statusMinggu() == 8) {
       return Text('1.6 cm');
-    } else if (_minggu == 9) {
+    } else if (statusMinggu() == 9) {
       return Text('2.3 cm');
-    } else if (_minggu == 9) {
+    } else if (statusMinggu() == 9) {
       return Text('3.1 cm');
-    } else if (_minggu == 10) {
+    } else if (statusMinggu() == 10) {
       return Text('3.1 cm');
-    } else if (_minggu == 11) {
+    } else if (statusMinggu() == 11) {
       return Text('4.1 cm');
-    } else if (_minggu == 12) {
+    } else if (statusMinggu() == 12) {
       return Text('5.4 cm');
-    } else if (_minggu == 13) {
+    } else if (statusMinggu() == 13) {
       return Text('7.4 cm');
-    } else if (_minggu == 14) {
+    } else if (statusMinggu() == 14) {
       return Text('8.7 cm');
-    } else if (_minggu == 15) {
+    } else if (statusMinggu() == 15) {
       return Text('10.1 cm');
-    } else if (_minggu == 16) {
+    } else if (statusMinggu() == 16) {
       return Text('11.6 cm');
-    } else if (_minggu == 17) {
+    } else if (statusMinggu() == 17) {
       return Text('13 cm');
-    } else if (_minggu == 18) {
+    } else if (statusMinggu() == 18) {
       return Text('14.2 cm');
-    } else if (_minggu == 19) {
+    } else if (statusMinggu() == 19) {
       return Text('15.3 cm');
-    } else if (_minggu == 20) {
+    } else if (statusMinggu() == 20) {
       return Text('16.4 cm');
-    } else if (_minggu == 21) {
+    } else if (statusMinggu() == 21) {
       return Text('26.7 cm');
-    } else if (_minggu == 22) {
+    } else if (statusMinggu() == 22) {
       return Text('27.8 cm');
-    } else if (_minggu == 23) {
+    } else if (statusMinggu() == 23) {
       return Text('28.9 cm');
-    } else if (_minggu == 24) {
+    } else if (statusMinggu() == 24) {
       return Text('30 cm');
-    } else if (_minggu == 25) {
+    } else if (statusMinggu() == 25) {
       return Text('34.6 cm');
-    } else if (_minggu == 26) {
+    } else if (statusMinggu() == 26) {
       return Text('35.6 cm');
-    } else if (_minggu == 27) {
+    } else if (statusMinggu() == 27) {
       return Text('37.6 cm');
-    } else if (_minggu == 28) {
+    } else if (statusMinggu() == 28) {
       return Text('38.6 cm');
-    } else if (_minggu == 29) {
+    } else if (statusMinggu() == 29) {
       return Text('39.9 cm');
-    } else if (_minggu == 30) {
+    } else if (statusMinggu() == 30) {
       return Text('39.9 cm');
-    } else if (_minggu == 31) {
+    } else if (statusMinggu() == 31) {
       return Text('41.1 cm');
-    } else if (_minggu == 32) {
+    } else if (statusMinggu() == 32) {
       return Text('42.2 cm');
-    } else if (_minggu == 33) {
+    } else if (statusMinggu() == 33) {
       return Text('43.7 cm');
-    } else if (_minggu == 34) {
+    } else if (statusMinggu() == 34) {
       return Text('45 cm');
-    } else if (_minggu == 35) {
+    } else if (statusMinggu() == 35) {
       return Text('46.2 cm');
-    } else if (_minggu == 36) {
+    } else if (statusMinggu() == 36) {
       return Text('47.4 cm');
-    } else if (_minggu == 37) {
+    } else if (statusMinggu() == 37) {
       return Text('48.6 cm');
-    } else if (_minggu == 38) {
+    } else if (statusMinggu() == 38) {
       return Text('49.8 cm');
-    } else if (_minggu == 39) {
+    } else if (statusMinggu() == 39) {
       return Text('50.7 cm');
-    } else if (_minggu == 40) {
+    } else if (statusMinggu() == 40) {
       return Text('51,2cm');
-    } else if (_minggu == 41) {
+    } else if (statusMinggu() == 41) {
       return Text('51.7 cm');
-    } else if (_minggu == 42) {
+    } else if (statusMinggu() == 42) {
       return Text('52.5 cm');
-    } else if (_minggu == 43) {
+    } else if (statusMinggu() == 43) {
       return Text('> 4000 cm');
     } else {
-      return ' ';
+      return Text(' ');
     }
   }
 
   gambarKehamilan() {
-    if (minggu <= 4) {
+    if (statusMinggu() <= 4) {
       return Image.asset('assets/images/Buah_kandungan_4.png');
-    } else if (minggu > 4 && minggu <= 7) {
+    } else if (statusMinggu() > 4 && statusMinggu() <= 7) {
       return Image.asset('assets/images/Buah_kandungan_7.png');
-    } else if (minggu > 7 && minggu <= 9) {
+    } else if (statusMinggu() > 7 && statusMinggu() <= 9) {
       return Image.asset('assets/images/Buah_kandungan_9.png');
-    } else if (minggu > 9 && minggu <= 11) {
+    } else if (statusMinggu() > 9 && statusMinggu() <= 11) {
       return Image.asset('assets/images/Buah_kandungan_11.png');
-    } else if (minggu > 12 && minggu <= 14) {
+    } else if (statusMinggu() >= 12 && statusMinggu() <= 14) {
       return Image.asset('assets/images/Buah_kandungan_14.png');
-    } else if (minggu > 15 && minggu <= 16) {
+    } else if (statusMinggu() > 15 && statusMinggu() <= 16) {
       return Image.asset('assets/images/Buah_kandungan_16.png');
-    } else if (minggu > 17 && minggu <= 18) {
+    } else if (statusMinggu() > 17 && statusMinggu() <= 18) {
       return Image.asset('assets/images/Buah_kandungan_17.png');
-    } else if (minggu > 19 && minggu <= 20) {
+    } else if (statusMinggu() > 19 && statusMinggu() <= 20) {
       return Image.asset('assets/images/Buah_kandungan_18.png');
-    } else if (minggu > 21 && minggu <= 22) {
+    } else if (statusMinggu() > 21 && statusMinggu() <= 22) {
       return Image.asset('assets/images/Buah_kandungan_20.png');
-    } else if (minggu > 23 && minggu <= 24) {
+    } else if (statusMinggu() > 23 && statusMinggu() <= 24) {
       return Image.asset('assets/images/Buah_kandungan_23.png');
-    } else if (minggu > 25 && minggu <= 27) {
+    } else if (statusMinggu() > 25 && statusMinggu() <= 27) {
       return Image.asset('assets/images/Buah_kandungan_26.png');
-    } else if (minggu > 28 && minggu <= 32) {
+    } else if (statusMinggu() > 28 && statusMinggu() <= 32) {
       return Image.asset('assets/images/Buah_kandungan_28.png');
-    } else if (minggu > 33 && minggu <= 34) {
+    } else if (statusMinggu() > 33 && statusMinggu() <= 34) {
       return Image.asset('assets/images/Buah_kandungan_32.png');
-    } else if (minggu > 35 && minggu <= 36) {
+    } else if (statusMinggu() > 35 && statusMinggu() <= 36) {
       return Image.asset('assets/images/Buah_kandungan_33.png');
-    } else if (minggu > 37 && minggu <= 38) {
+    } else if (statusMinggu() > 37 && statusMinggu() <= 38) {
       return Image.asset('assets/images/Buah_kandungan_35.png');
-    } else if (minggu > 39 && minggu < 40) {
+    } else if (statusMinggu() > 39 && statusMinggu() < 40) {
       return Image.asset('assets/images/Buah_kandungan_39.png');
     } else {
       Text('!');

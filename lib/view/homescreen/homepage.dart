@@ -9,6 +9,7 @@ import 'package:temani/controllers/IMTController.dart';
 import 'package:temani/controllers/InfoController.dart';
 import 'package:temani/controllers/auth.dart';
 import 'package:temani/functions/trimester_function.dart';
+import 'package:temani/view/homescreen/changeDialog.dart';
 
 class Dashboarda extends StatefulWidget {
   const Dashboarda({Key? key}) : super(key: key);
@@ -74,70 +75,84 @@ class _DashboardaState extends State<Dashboarda> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 1.4,
-                                    height:
-                                        MediaQuery.of(context).size.height / 12,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xffC4D7E0),
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(30),
-                                            bottomRight: Radius.circular(30))),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                              child: Container(
-                                            child: Image.asset(
-                                              'assets/icons/profile_icon.png',
-                                              scale: 12,
-                                            ),
-                                          )),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Hai, ${box.read('dataUser')['nama'] ?? ''}",
-                                                    style: _appbarTitleStyle(),
-                                                  ),
+                          GestureDetector(
+                            onTap: () => Get.to(showDialog(
+                                context: context,
+                                builder: (context) => ChangeDialog())),
+                            child: Container(
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.4,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                12,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xffC4D7E0),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(30),
+                                                bottomRight:
+                                                    Radius.circular(30))),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Expanded(
+                                                  child: Container(
+                                                child: Image.asset(
+                                                  'assets/icons/profile_icon.png',
+                                                  scale: 12,
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    '${box.read('dataUser')['alamat'] ?? ''}',
-                                                    style: GoogleFonts.lato(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 12)),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                              )),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Hai, ${box.read('dataUser')['nama'] ?? ''}",
+                                                        style:
+                                                            _appbarTitleStyle(),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        '${box.read('dataUser')['alamat'] ?? ''}',
+                                                        style: GoogleFonts.lato(
+                                                            textStyle:
+                                                                TextStyle(
+                                                                    fontSize:
+                                                                        12)),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ]),
+                                  ]),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -147,7 +162,7 @@ class _DashboardaState extends State<Dashboarda> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '${InfoController.minggu.toStringAsFixed(0)}',
+                                      '${info.statusMinggu().toStringAsFixed(0)}',
                                       style: GoogleFonts.staatliches(
                                           textStyle: TextStyle(fontSize: 70)),
                                     ),
@@ -165,10 +180,13 @@ class _DashboardaState extends State<Dashboarda> {
                                       child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        '${info.funcTrimester()}',
-                                        style: GoogleFonts.staatliches(
-                                            textStyle: TextStyle(fontSize: 70)),
+                                      GetBuilder<InfoController>(
+                                        builder: (controller) => Text(
+                                          '${info.funcTrimester()}',
+                                          style: GoogleFonts.staatliches(
+                                              textStyle:
+                                                  TextStyle(fontSize: 70)),
+                                        ),
                                       ),
                                       Align(
                                           alignment: Alignment.bottomCenter,
@@ -198,8 +216,10 @@ class _DashboardaState extends State<Dashboarda> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            child: info.gambarKehamilan(),
+                          child: GetBuilder<InfoController>(
+                            builder: (controller) => Container(
+                              child: controller.gambarKehamilan(),
+                            ),
                           ),
                           flex: 2,
                         ),
@@ -220,12 +240,14 @@ class _DashboardaState extends State<Dashboarda> {
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 20)),
                                       ),
-                                      Text(
-                                        "${InfoController.sisaKehamilan}",
-                                        style: GoogleFonts.lato(
-                                            textStyle: TextStyle(
-                                                fontSize: 40,
-                                                fontWeight: FontWeight.w600)),
+                                      GetBuilder<InfoController>(
+                                        builder: (controller) => Text(
+                                          '${controller.sisaHari()}',
+                                          style: GoogleFonts.lato(
+                                              textStyle: TextStyle(
+                                                  fontSize: 40,
+                                                  fontWeight: FontWeight.w600)),
+                                        ),
                                       ),
                                       Text(
                                         "hari",
@@ -258,7 +280,7 @@ class _DashboardaState extends State<Dashboarda> {
                                         FontAwesomeIcons.scaleBalanced,
                                         size: 15,
                                       ),
-                                      Text('${info.ukuranBerat()}')
+                                      info.ukuranBerat()
                                     ],
                                   ),
                                   Row(
@@ -269,7 +291,7 @@ class _DashboardaState extends State<Dashboarda> {
                                         FontAwesomeIcons.ruler,
                                         size: 15,
                                       ),
-                                      Text("${info.ukuranPanjang()}")
+                                      info.ukuranPanjang()
                                     ],
                                   )
                                 ],
@@ -356,7 +378,7 @@ class _DashboardaState extends State<Dashboarda> {
                                                               Column(
                                                                 children: [
                                                                   Text(
-                                                                    '60',
+                                                                    '${box.read('imt')['berat'] ?? 0}',
                                                                     style:
                                                                         _infoBMIStyle(),
                                                                   ),
@@ -366,7 +388,7 @@ class _DashboardaState extends State<Dashboarda> {
                                                               Column(
                                                                 children: [
                                                                   Text(
-                                                                    '168',
+                                                                    '${box.read('imt')['tinggi'] ?? 0}',
                                                                     style:
                                                                         _infoBMIStyle(),
                                                                   ),

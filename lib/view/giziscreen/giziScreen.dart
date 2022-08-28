@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:temani/view/giziscreen/giziList.dart';
+import 'package:temani/widgets/gizi_form.dart';
 
 class GiziScreen extends StatefulWidget {
   const GiziScreen({Key? key}) : super(key: key);
@@ -18,7 +17,8 @@ class _GiziScreenState extends State<GiziScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () =>
+            showDialog(context: context, builder: ((context) => GiziForm())),
         label: Text('Tambah gizi'),
         backgroundColor: Color(0xffFFC4C4),
         icon: Icon(Icons.add),
@@ -73,7 +73,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "960",
+                                          "2100",
                                           style: TextStyle(
                                               fontSize: 23,
                                               color: Colors.white),
@@ -115,7 +115,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   barRadius: Radius.circular(12),
                                 ),
                                 Text(
-                                  "230 gram",
+                                  "0 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -138,7 +138,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   barRadius: Radius.circular(12),
                                 ),
                                 Text(
-                                  "120 gram",
+                                  "0 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -161,7 +161,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   lineHeight: 10,
                                 ),
                                 Text(
-                                  "200 gram",
+                                  "0 gram",
                                   style: _textInfoStyle(),
                                 )
                               ],
@@ -201,7 +201,7 @@ class _GiziScreenState extends State<GiziScreen> {
                                   style: _textInfoStyle(),
                                 ),
                                 Text(
-                                  '1240',
+                                  '0',
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           color: Colors.white, fontSize: 50)),
@@ -235,7 +235,11 @@ class _GiziScreenState extends State<GiziScreen> {
                                 textStyle: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600)),
                           ),
-                          Flexible(child: Container())
+                          Flexible(
+                              child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: GiziList(),
+                          ))
                         ],
                       )))
             ],
