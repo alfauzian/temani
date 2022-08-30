@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:900457764149:android:bf3b189cc209775714287c",
         "android_client_info": {
-          "package_name": "com.rosi.temani"
+          "package_name": "com.rosy.temani"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "900457764149-hglpi5ah7p323pe75gmcr2duq5721rrl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rosi.temani",
+            "package_name": "com.rosy.temani",
             "certificate_hash": "1acdbfce3ad4f3609b93325fad974b081ba8d7d6"
           }
         },

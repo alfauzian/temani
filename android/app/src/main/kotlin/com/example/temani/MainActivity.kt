@@ -1,4 +1,4 @@
-package com.rosi.temani
+package com.rosy.temani
 
 import io.flutter.embedding.android.FlutterActivity
 
